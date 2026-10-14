@@ -121,7 +121,7 @@ WHERE p.product_name = 'Laptop';
 SELECT c.customer_name AS 'Customer Name', p.product_name AS 'Product Name'
 FROM Customers AS c JOIN Orders AS o ON o.customer_id = c.customer_id
 JOIN Products AS p ON p.product_id = o.product_id
-WHERE o.order_date > '2026-02-01';
+WHERE o.order_date BETWEEN '2026-02-01' AND '2026-02-28';
 
 -- Q10. Display orders where the order amount (price * quantity) is above ₹10,000.
 SELECT o.*, p.price * o.quantity AS Amount FROM Products AS p JOIN Orders AS o ON o.product_id = p.product_id
@@ -136,31 +136,29 @@ SELECT c.* FROM customers AS c LEFT JOIN Orders AS o ON c.customer_id = o.custom
 
 -- Q13. Display all products and any orders containing them, including
 --      products that have never been ordered.
-SELECT * FROM Orders AS o LEFT JOIN Products AS p ON p.product_id = o.product_id;
+SELECT * FROM Products AS p LEFT JOIN Orders AS o ON p.product_id = o.product_id;
 
 -- Q14. Find products that have never been ordered.
 SELECT * FROM Products AS p LEFT JOIN Orders AS o ON p.product_id = o.product_id WHERE o.product_id IS NULL;
 
 -- Q15. Display every customer and the total number of orders they placed,
 --      including customers with zero orders.
-SELECT c.*, COUNT(*) AS 'Total Orders' FROM customers AS c JOIN orders AS o ON c.customer_id = o.customer_id GROUP BY c.customer_id;
+SELECT c.*, COUNT(o.order_id) AS 'Total Orders' FROM customers AS c LEFT JOIN orders AS o ON c.customer_id = o.customer_id GROUP BY c.customer_id;
 
 -- Q16. Display all orders along with their corresponding customer names.
-SELECT * FROM Orders AS o RIGHT JOIN Customers AS c ON c.customer_id = o.customer_id;
+SELECT * FROM Orders AS o LEFT JOIN Customers AS c ON c.customer_id = o.customer_id;
 
 -- Q17. Display all products and their matching orders using RIGHT JOIN.
-SELECT * FROM Products AS p RIGHT JOIN Orders AS o ON p.product_id = o.product_id;
+SELECT * FROM Orders AS o RIGHT JOIN Products AS p ON p.product_id = o.product_id;
 
 -- Q18. Display all customers and their orders using RIGHT JOIN.
 --      Arrange the tables so every customer is included.
-SELECT * FROM Orders AS O RIGHT JOIN Customers AS c ON o.customer_id = c.customer_id;
+SELECT * FROM Orders AS o RIGHT JOIN Customers AS c ON o.customer_id = c.customer_id;
 
 -- Q19. Display customers and products for all orders.
-SELECT c.*, p.* FROM Orders AS o RIGHT JOIN Customers AS c ON c.customer_id = o.customer_id
-RIGHT JOIN Products as p ON p.product_id = o.product_id;
+SELECT c.*, p.* FROM Orders AS o JOIN Customers AS c ON c.customer_id = o.customer_id JOIN Products as p ON p.product_id = o.product_id;
 
--- Q20. Display all products, including those without matching orders,
---      using.
+-- Q20. Display all products, including those without matching orders
 SELECT p.*, o.* FROM Orders AS o RIGHT JOIN Products as p ON p.product_id = o.product_id;
 
 -- AGGREGATES, GROUP BY & HAVING
@@ -181,14 +179,14 @@ LEFT JOIN Products AS p ON p.product_id = o.product_id GROUP BY c.customer_name 
 
 -- Q25. Display the number of orders placed by each customer, sorted from
 --      highest to lowest order count.
-SELECT c.customer_name AS 'Customer Name', COUNT(*) AS 'No of Orders' FROM Customers AS C LEFT JOIN Orders AS o ON c.customer_id = o.customer_id
+SELECT c.customer_name AS 'Customer Name', COUNT(o.order_id) AS 'No of Orders' FROM Customers AS C LEFT JOIN Orders AS o ON c.customer_id = o.customer_id
 GROUP BY c.customer_name ORDER BY COUNT(*) DESC;
 
 -- Q26. Find the average product price.
 SELECT ROUND(AVG(price),2) AS 'Average Price' FROM Products;
 
 -- Q27. Display each product and the total quantity sold for that product.
-SELECT p.product_name AS 'Product', SUM(o.quantity) AS 'Total Quantity' FROM Orders AS o LEFT JOIN Products AS p ON p.product_id = o.product_id
+SELECT p.product_name AS 'Product', SUM(o.quantity) AS 'Total Quantity' FROM Orders AS o JOIN Products AS p ON p.product_id = o.product_id
 GROUP BY p.product_name;
 
 -- Q28. Find products with a total quantity sold greater than 2.

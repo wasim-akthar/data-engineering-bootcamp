@@ -102,30 +102,31 @@ WHERE d.Dept_Name IN ('IT', 'HR');
 -- Q4. Display all employees along with their department names.
 --     Employees without a matching department should also
 --     be displayed.
-SELECT * FROM Departments AS d 
-LEFT JOIN Employees_Info AS e ON d.Dept_ID = e.Dept_ID;
+SELECT * FROM Employees_Info AS e 
+LEFT JOIN Departments AS d ON e.Dept_ID = d.Dept_ID;
 
 -- Q5. Find the employees who do not have a matching department.
-SELECT * FROM Departments AS d 
-LEFT JOIN Employees_Info AS e ON d.Dept_ID = e.Dept_ID
-WHERE e.Emp_ID IS NULL;
+SELECT e.* FROM Employees_Info AS e 
+LEFT JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
+WHERE d.Dept_ID IS NULL;
 
 -- Q6. Display all employees and their assigned project names,
 --     including employees who are not assigned to any project.
-SELECT * FROM Projects AS p 
-LEFT JOIN Employees_Info AS e ON p.Dept_ID = e.Dept_ID;
+SELECT e.Emp_Name, p.Project_Name FROM Employees_Info AS e 
+LEFT JOIN Projects AS p ON e.Dept_ID = p.Dept_ID;
 
 -- Q7. Using LEFT JOIN, display employees whose department
 --     information is missing.
-SELECT * FROM Employees_Info AS e 
+SELECT e.* FROM Employees_Info AS e 
 LEFT JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
-WHERE e.Dept_ID IS NULL;
+WHERE d.Dept_ID IS NULL;
 
 -- Q8. Find employees who belong to a department but do not
 --     have a project associated with their department.
-SELECT * FROM Employees_Info AS e 
-LEFT JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
-WHERE e.Dept_ID IS NULL;
+SELECT e.* FROM Employees_Info AS e 
+JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
+LEFT JOIN Projects AS p ON p.Dept_ID = d.Dept_ID
+WHERE p.Project_ID IS NULL;
 
 -- ==========================================================
 -- SECTION 5: RIGHT JOIN
@@ -133,8 +134,8 @@ WHERE e.Dept_ID IS NULL;
 
 -- Q9. Display all departments along with the employees
 --     working in each department.
-SELECT * FROM Departments AS d
-RIGHT JOIN Employees_Info AS e ON d.Dept_ID = e.Dept_ID;
+SELECT * FROM Employees_Info AS e
+RIGHT JOIN Departments AS d ON d.Dept_ID = e.Dept_ID;
 
 -- Q10. Using RIGHT JOIN, display departments that have
 --      no employees.
@@ -145,8 +146,8 @@ WHERE e.Emp_ID IS NULL;
 -- Q11. Display all departments and their corresponding
 --      project names, including departments that do not
 --      have any project.
-SELECT * FROM Departments AS d
-RIGHT JOIN Projects AS p ON d.Dept_ID = p.Dept_ID;
+SELECT * FROM Projects AS p
+RIGHT JOIN Departments AS d ON d.Dept_ID = p.Dept_ID;
 
 -- ==========================================================
 -- SECTION 6: MULTIPLE JOINS
@@ -171,9 +172,9 @@ LEFT JOIN Departments AS d on d.Dept_ID = e.Dept_ID;
 -- Q14. Using FULL OUTER JOIN, display all employees and
 --      all departments, including both matching and
 --      non-matching records.
-SELECT * FROM Employees_Info AS e LEFT JOIN Departments as d ON d.Dept_ID = e.Dept_ID
-UNION ALL
-SELECT * FROM Departments AS d RIGHT JOIN Employees_Info as e ON d.Dept_ID = e.Dept_ID;
+SELECT e.*, d.* FROM Employees_Info AS e LEFT JOIN Departments AS d ON d.Dept_ID = e.Dept_ID
+UNION
+SELECT e.*, d.* FROM Employees_Info AS e RIGHT JOIN Departments AS d ON d.Dept_ID = e.Dept_ID;
 
 -- ==========================================================
 -- SECTION 8: COMBINED JOIN CHALLENGE
@@ -212,7 +213,7 @@ WHERE e.Dept_ID IN (2, 3);
 SELECT e.Emp_Name AS Name, e.Emp_ID AS "Emp ID", e.Salary AS Salary, d.Dept_Name as "Department Name"
 FROM Employees_Info AS e 
 JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
-WHERE e.Salary BETWEEN 40000 AND 50000;  
+WHERE e.Salary BETWEEN 40000 AND 55000;  
   
 -- Q20. Display employees who have a matching department and
 --      whose department also has a project.
@@ -227,93 +228,62 @@ JOIN Projects as p ON p.Dept_ID = d.Dept_ID;
 
 -- Q21. Find the number of employees in each department.
 --      Display department name and employee count.
-SELECT 
-CASE
-	WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-	WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-	WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-END AS Department,
-COUNT(*) AS 'Number of Employees'
+SELECT d.Dept_Name AS Department, COUNT(*) AS 'Number of Employees'
 FROM Employees_Info AS e
 JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
-GROUP BY 
-	CASE
-		WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-		WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-		WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-	END;
+GROUP BY d.Dept_Name;
+
 -- Q22. Find the average salary of employees in each department.
 --      Display department name and average salary.
-SELECT 
-CASE
-	WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-	WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-	WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-END AS Department,
-ROUND(AVG(e.Salary),2) AS 'Average Salary'
+SELECT d.Dept_Name AS Department, ROUND(AVG(e.Salary),2) AS 'Average Salary'
 FROM Employees_Info AS e
 JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
-GROUP BY 
-	CASE
-		WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-		WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-		WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-	END;
+GROUP BY d.Dept_Name;
 
 -- Q23. Find the highest salary in each department.
 --      Display department name and highest salary.
-SELECT 
-CASE
-	WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-	WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-	WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-END AS Department,
-ROUND(MAX(e.Salary),2) AS 'Highest Salary'
+SELECT d.Dept_Name AS Department, ROUND(MAX(e.Salary),2) AS 'Highest Salary'
 FROM Employees_Info AS e
 JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
-GROUP BY 
-	CASE
-		WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-		WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-		WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-	END;
+GROUP BY d.Dept_Name;
 
 -- Q24. Find the lowest salary in each department.
 --      Display department name and lowest salary.
-SELECT 
-CASE
-	WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-	WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-	WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-END AS Department,
-ROUND(MIN(e.Salary),2) AS 'Lowest Salary'
+SELECT d.Dept_Name AS Department, ROUND(MIN(e.Salary),2) AS 'Lowest Salary'
 FROM Employees_Info AS e
 JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
-GROUP BY 
-	CASE
-		WHEN e.Dept_ID = 1 THEN 'IT'         WHEN e.Dept_ID = 2 THEN 'HR'
-		WHEN e.Dept_ID = 3 THEN 'Finance'    WHEN e.Dept_ID = 4 THEN 'Marketing'
-		WHEN e.Dept_ID = 5 THEN 'Operations' WHEN e.Dept_ID = 6 THEN 'Sales'
-	END;
+GROUP BY d.Dept_Name;
 
 -- Q25. Display each department name and the total number
 --      of projects associated with that department.
-
+SELECT d.Dept_Name AS Department, COUNT(*) AS 'No of Projects' 
+FROM Departments AS d JOIN Projects AS p ON p.Dept_ID = d.Dept_ID
+GROUP BY d.Dept_Name;
 
 -- ==========================================================
 -- SECTION 11: JOIN + GROUP BY / HAVING
 -- ==========================================================
 
 -- Q26. Display departments having more than one employee.
-
+SELECT d.Dept_Name AS 'Department', COUNT(*) AS 'No of Employees' FROM Departments AS d 
+JOIN Employees_Info as e ON e.Dept_ID = d.Dept_ID
+GROUP BY d.Dept_Name
+HAVING COUNT(*) > 1;
 
 -- Q27. Display departments whose average employee salary
 --      is greater than 45000.
-
+SELECT d.Dept_Name AS 'Department', COALESCE(ROUND(AVG(e.Salary),2),0) AS 'Average Salary' FROM Departments AS d 
+JOIN Employees_Info as e ON e.Dept_ID = d.Dept_ID
+GROUP BY d.Dept_Name
+HAVING AVG(e.Salary) > 45000;
 
 -- Q28. Display departments that have at least one employee
 --      and at least one project.
-
+SELECT d.Dept_Name AS 'Department' FROM Departments AS d
+JOIN Employees_Info AS e ON d.Dept_ID = e.Dept_ID
+JOIN Projects AS p ON p.Dept_ID = d.Dept_ID
+GROUP BY d.Dept_Name
+HAVING COUNT(DISTINCT e.Emp_ID) >= 1 AND COUNT(DISTINCT p.Project_ID) >= 1;
 
 -- ==========================================================
 -- SECTION 12: JOIN CHALLENGES
@@ -322,12 +292,20 @@ GROUP BY
 -- Q29. Display Emp_ID, Emp_Name, Dept_Name, Project_Name,
 --      and Salary for all employees whose department has
 --      a project. Sort the result by salary in descending order.
-
+SELECT e.Emp_ID AS 'Employee ID', e.Emp_Name AS 'Employee Name', d.Dept_Name AS 'Department Name',
+p.Project_Name AS 'Project Name', e.Salary AS 'Salary' 
+FROM Employees_Info AS e 
+JOIN Departments AS d ON e.Dept_ID = d.Dept_ID
+JOIN Projects AS p ON p.Dept_ID = d.Dept_ID
+ORDER BY e.Salary DESC;
 
 -- Q30. Display all department names, employee names, project
 --      names, and salaries, including departments with no
 --      employees and departments with no projects.
-
+SELECT d.Dept_Name, e.Emp_Name, p.Project_Name, e.Salary
+FROM Departments AS d
+LEFT JOIN Employees_Info AS e ON d.Dept_ID = e.Dept_ID
+LEFT JOIN Projects AS p ON d.Dept_ID = p.Dept_ID;
 
 -- ==========================================================
 -- MULTIPLE JOIN SYNTAX REFERENCE
@@ -341,3 +319,5 @@ JOIN table2
 JOIN table3
     ON table2.common_column = table3.common_column;
 */
+
+SELECT Dept_ID FROM Departments AS d JOIN Employees_Info AS e ON d.Dept_ID = e.Emp_ID;
