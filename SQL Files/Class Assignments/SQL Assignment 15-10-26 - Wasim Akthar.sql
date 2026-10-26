@@ -56,19 +56,24 @@ AS c JOIN orders AS o ON c.customer_id = o.customer_id GROUP BY c.name HAVING SU
 -- Subqueries
 
 -- Find the customers who have placed atleast one order
-SELECT * FROM customers AS c WHERE EXISTS (SELECT * FROM orders AS o WHERE o.customer_id = c.customer_id);
+SELECT * FROM customers AS c 
+WHERE EXISTS (SELECT 'irukudhaa' FROM orders AS o WHERE o.customer_id = c.customer_id);
 
 -- Find the customers who have not placed an order
-SELECT * FROM customers AS c WHERE NOT EXISTS (SELECT * FROM orders AS o WHERE o.customer_id = c.customer_id);
+SELECT * FROM customers AS c 
+WHERE NOT EXISTS (SELECT 'illayaa' FROM orders AS o WHERE o.customer_id = c.customer_id);
 
 -- Find orders whose amount is greater than the average order amount
-SELECT * FROM orders WHERE amount > (SELECT AVG(amount) FROM orders);
+SELECT * FROM orders 
+WHERE amount > (SELECT AVG(amount) FROM orders);
 
 -- Find customers who have placed the highest value order
-SELECT * FROM customers AS c JOIN orders AS o ON o.customer_id = c.customer_id WHERE o.amount = (SELECT MAX(amount) FROM orders);
+SELECT * FROM customers AS c JOIN orders AS o ON o.customer_id = c.customer_id 
+WHERE o.amount = (SELECT MAX(amount) FROM orders);
 
 -- Find the customers whose total spending is greater than 500
-SELECT * FROM customers AS c WHERE (SELECT SUM(amount) FROM orders AS o WHERE o.customer_id = c.customer_id ) > 500;
+SELECT * FROM customers AS c 
+WHERE (SELECT SUM(amount) FROM orders AS o WHERE o.customer_id = c.customer_id ) > 500;
 
 -- Find the orders greater than arun's highest order amount
 SELECT * FROM customers AS c JOIN orders AS o ON o.customer_id = c.customer_id 
@@ -80,6 +85,7 @@ WHERE o.amount > (
 	)
 );
 
--- FInd the customers who places orders worth more than 400
+-- Find the customers who places orders worth more than 400
 SELECT c.* FROM customers AS c 
-WHERE EXISTS (SELECT customer_id FROM orders AS o WHERE o.customer_id = c.customer_id AND o.amount > 400);
+WHERE customer_id = ANY 
+(SELECT customer_id FROM orders AS o WHERE o.customer_id = c.customer_id AND o.amount > 400);

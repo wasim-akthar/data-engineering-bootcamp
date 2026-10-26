@@ -389,231 +389,303 @@ SELECT * FROM students WHERE city IN ('Chennai', 'Madurai', 'Salem');
 -- Q38. Find all students whose department is not Java or Testing.
 SELECT * FROM students WHERE department NOT IN ('Java', 'Testing');
 
--- Q39. Find marks where sql_marks are BETWEEN 70 AND 90.
-
+-- Q39. Find students who scored between 70 and 90 in sql.
+SELECT * FROM students WHERE sql_marks BETWEEN 70 AND 90;
 
 -- Q40. Find marks where aptitude_marks are NOT BETWEEN 60 AND 80.
-
+SELECT * FROM students WHERE aptitude_marks NOT BETWEEN 60 AND 80;
 
 -- Q41. Find students whose age is BETWEEN 19 AND 21.
-
+SELECT * FROM students WHERE age BETWEEN 19 AND 21;
 
 -- ==========================================================
 -- PART K: FILTERS (LIKE PATTERNS)
 -- ==========================================================
 
 -- Q42. Find all students whose student_name starts with the letter 'A'.
-
+SELECT * FROM students WHERE student_name LIKE 'A%';
 
 -- Q43. Find all students whose student_name ends with the letter 'a'.
-
+SELECT * FROM students WHERE student_name LIKE '%a';
 
 -- Q44. Find all students whose student_name contains 'uv' or 'um'.
-
-
+SELECT * FROM students WHERE student_name LIKE '%uv%' OR student_name LIKE '%um%';
+-- OR
+SELECT * FROM students WHERE student_name REGEXP 'um|uv';
 -- Q45. Find all students whose student_name has exactly 4 characters.
-
+SELECT * FROM students WHERE LENGTH(student_name) = 4;
 
 -- Q46. Find all students whose student_name has 'r' as the second character.
-
+SELECT * FROM students WHERE student_name LIKE '_r%';
 
 -- Q47. Find all students whose city starts with 'C'.
-
+SELECT * FROM students WHERE city LIKE 'C%';
 
 -- ==========================================================
 -- PART L: FILTERS (IS NULL, IS NOT NULL)
 -- ==========================================================
 
 -- Q48. Find all students whose email IS NULL.
-
+SELECT * FROM students WHERE email IS NULL;
 
 -- Q49. Find all students whose email IS NOT NULL.
-
+SELECT * FROM students WHERE email IS NOT NULL;
 
 -- ==========================================================
 -- PART M: UPPER & LOWER
 -- ==========================================================
 
 -- Q50. Display all student names converted to UPPER case.
-
+SELECT UPPER(student_name) AS 'Student Name' FROM students;
 
 -- Q51. Display all department names converted to LOWER case.
-
+SELECT LOWER(department) AS 'Department' FROM students;
 
 -- Q52. Display student_name in UPPER case and city in LOWER case with aliases.
-
+SELECT UPPER(student_name) AS 'Student Name', LOWER(department) AS 'Department' FROM students;
 
 -- Q53. Filter students whose UPPER(city) equals 'CHENNAI'.
-
+SELECT * FROM students WHERE UPPER(city) = 'CHENNAI';
 
 -- Q54. Filter students whose LOWER(department) equals 'java'.
-
+SELECT * FROM students WHERE LOWER(department) = 'java';
 
 -- ==========================================================
 -- PART N: SORTING, TOP-N, LIMIT, OFFSET & PAGINATION
 -- ==========================================================
 
 -- Q55. Display all students sorted by student_name in ascending alphabetical order.
-
+SELECT * FROM students ORDER BY student_name ASC;
 
 -- Q56. Display all students sorted by age descending; if age is equal, sort by student_name ascending.
-
+SELECT * FROM students ORDER BY age DESC, student_name ASC;
 
 -- Q57. Display the marks table sorted by total marks descending.
+SELECT *, (python_marks + sql_marks + aptitude_marks) AS 'Total Marks' FROM marks ORDER BY (python_marks + sql_marks + aptitude_marks) DESC;
 
+-- Q58. Find the top 3 highest scorers in Python marks.
+SELECT * FROM marks ORDER BY python_marks LIMIT 3;
 
--- Q58. Find the top 3 highest scorers in Python marks using LIMIT.
+-- Q59. Find the 2nd highest mark in SQL.
+SELECT * FROM marks ORDER BY sql_marks LIMIT 1 OFFSET 1;
 
-
--- Q59. Find the 2nd highest mark in SQL using LIMIT and OFFSET.
-
-
--- Q60. Find the 3rd lowest mark in Aptitude using ORDER BY, LIMIT, and OFFSET.
-
+-- Q60. Find the 3rd lowest mark in Aptitude.
+SELECT * FROM marks ORDER BY aptitude_marks LIMIT 1 OFFSET 2;
 
 -- Q61. Pagination: Retrieve the first page of 3 students (rows 1 to 3).
-
+SELECT * FROM marks LIMIT 3;
 
 -- Q62. Pagination: Retrieve the second page of 3 students (rows 4 to 6).
-
+SELECT * FROM marks LIMIT 3 OFFSET 3;
 
 -- Q63. Pagination: Retrieve the third page of 3 students (rows 7 to 9).
-
+SELECT * FROM marks LIMIT 3 OFFSET 6;
 
 -- ==========================================================
 -- PART O: GROUP BY & HAVING EXTENSION
 -- ==========================================================
 
 -- Q64. Find the average SQL marks grouped by department.
-
-
+SELECT s.department AS 'Department','SQL' AS 'Subject',
+ROUND(AVG(m.sql_marks),2) AS 'Average SQL Marks' FROM students AS s
+JOIN marks AS m GROUP BY s.department;
+ 
 -- Q65. Find the maximum and minimum Aptitude marks in each department.
-
+SELECT s.department AS 'Department', 'Aptitude' AS 'Subject', 
+MAX(m.aptitude_marks) AS 'Maximum Marks', MIN(m.aptitude_marks) AS 'Maximum Marks' FROM students AS s
+JOIN marks AS m GROUP BY s.department;
 
 -- Q66. Count the number of students from each city.
-
+SELECT city AS 'City', COUNT(*) AS 'No of Students'
+FROM students GROUP BY city;
 
 -- Q67. Display only those cities that have more than 1 student.
-
+SELECT city AS 'City', COUNT(*) AS 'No of Students'
+FROM students GROUP BY city HAVING COUNT(*) > 1;
 
 -- Q68. Display departments where the average Python marks are 70 or above.
-
+SELECT s.department AS 'Department', 'Python' AS 'Subject', ROUND(AVG(m.python_marks),2) AS 'Average Marks' FROM students AS s
+JOIN marks AS m ON m.student_id = s.student_id GROUP BY s.department HAVING AVG(m.python_marks) >= 70;
 
 -- Q69. Display departments where the maximum Aptitude marks reached 100.
-
+SELECT s.department AS 'Department', 'Aptitude' AS 'Subject', MAX(aptitude_marks) AS 'Maximum Marks' FROM students AS s
+JOIN marks AS m ON m.student_id = s.student_id GROUP BY s.department HAVING MAX(aptitude_marks) = 100;
 
 -- ==========================================================
 -- PART P: CASE & CONDITIONAL AGGREGATION
 -- ==========================================================
 
 -- Q70. Using CASE, count how many students scored >= 80 in Python in a single summary row.
-
+SELECT 'Python' AS 'Subject',
+SUM(CASE
+	WHEN m.python_marks >= 80 THEN 1 ELSE 0
+END) AS 'Eligible People'
+FROM marks AS m;
 
 -- Q71. Using SUM and CASE, display the count of students who passed (total >= 150) and failed (total < 150).
-
+SELECT 
+'All' AS 'Subject',
+SUM(CASE WHEN (python_marks + sql_marks + aptitude_marks) >= 150 THEN 1 ELSE 0 END) AS 'Total Passed',
+SUM(CASE WHEN (python_marks + sql_marks + aptitude_marks) < 150 THEN 1 ELSE 0 END) AS 'Total Failed'
+FROM marks;
 
 -- Q72. For each student, classify Aptitude performance: >= 80 'Advanced', >= 60 'Intermediate', else 'Beginner'.
-
+SELECT s.student_name AS 'Student Name', 'Aptitude' AS 'Subject', 
+CASE
+	WHEN m.aptitude_marks >= 80 THEN 'Advanced'
+    WHEN m.aptitude_marks >= 60 THEN 'Intermediate'
+    ELSE 'Begineer'
+END AS 'Performance'
+FROM students AS s JOIN marks AS m ON s.student_id = m.student_id;
 
 -- Q73. Display department and count of students aged >= 21 vs < 21 using CASE inside SUM().
-
+SELECT s.department AS 'Department',
+SUM(CASE WHEN s.age >=21 THEN 1 ELSE 0 END) AS '21 & Above',
+SUM(CASE WHEN s.age < 21 THEN 1 ELSE 0 END) AS 'Below 21'
+FROM students AS s GROUP BY s.department;
 
 -- ==========================================================
 -- PART Q: JOINS (INNER, LEFT, RIGHT)
 -- ==========================================================
 
 -- Q74. Display student_name, department, and python_marks using an INNER JOIN.
-
+SELECT s.student_name AS 'Student Name', s.department AS 'Department', m.python_marks AS 'Python marks' FROM students AS s JOIN marks AS m;
 
 -- Q75. Display student_name, city, and total marks using an INNER JOIN.
-
+SELECT s.student_name AS 'Student Name', s.city AS 'City', CONCAT((python_marks + sql_marks + aptitude_marks),'/300') AS total_marks 
+FROM sudents AS s JOIN marks AS m ON s.student_id = m.student_id;
 
 -- Q76. Display all students and their marks using a LEFT JOIN so students without marks are included.
-
+SELECT * FROM students AS s LEFT JOIN marks AS m ON m.student_id = s.student_id;
 
 -- Q77. Find students who have NO marks recorded using a LEFT JOIN and IS NULL check.
-
+SELECT * FROM students AS s LEFT JOIN marks AS m ON m.student_id = s.student_id WHERE m.mark_id IS NULL;
 
 -- Q78. Display marks records joined with students using a RIGHT JOIN.
-
+SELECT * FROM students AS s RIGHT JOIN marks AS m ON m.student_id = s.student_id;
 
 -- Q79. Display student_name, department, and sql_marks for students in 'Python' or 'Java' department using INNER JOIN.
-
+SELECT s.student_name AS 'Name', s.department AS 'Department', m.sql_marks AS 'SQL Marks' FROM students AS s JOIN marks AS m
+WHERE s.department IN ('Python', 'Java');
 
 -- ==========================================================
 -- PART R: UNION & UNION ALL
 -- ==========================================================
 
 -- Q80. Combine distinct cities from the students table with a list of cities ('Chennai', 'Madurai', 'Bangalore') using UNION.
-
-
+SELECT DISTINCT city FROM students
+UNION
+SELECT 'Chennai'
+UNION
+SELECT 'Madurai'
+UNION
+SELECT 'Bangalore';
 -- Q81. Combine student names from the 'Python' department and student names from 'Chennai' using UNION ALL.
-
+SELECT * FROM students WHERE department = 'Python'
+UNION ALL
+SELECT * FROM students WHERE city = 'Chennai';
 
 -- Q82. Select student_id and 'Passed' for total >= 150 UNION SELECT student_id and 'Failed' for total < 150.
-
+SELECT student_id, 'Passed' AS status
+FROM marks
+WHERE (python_marks + sql_marks + aptitude_marks) >= 150
+UNION
+SELECT student_id, 'Failed' AS status
+FROM marks
+WHERE (python_marks + sql_marks + aptitude_marks) < 150;
 
 -- ==========================================================
 -- PART S: MIX AND MATCH
 -- ==========================================================
 
--- Q83. Find the student_name and department of the student with the highest total marks using JOIN, ORDER BY, and LIMIT.
-
+-- Q83. Find the student_name and department of the student with the highest total marks.
+SELECT s.student_name AS 'Student Name', s.department AS 'Department', 
+CONCAT((m.python_marks + m.sql_marks + m.aptitude_marks),'/300') AS 'Total Marks'
+FROM students AS s JOIN marks AS m ON s.student_id = m.student_id ORDER BY (m.python_marks + m.sql_marks + m.aptitude_marks) DESC LIMIT 1;
 
 -- Q84. Display department, average total marks per department, sorted by average total marks descending.
-
+SELECT s.department AS 'Department', AVG(CONCAT((m.python_marks + m.sql_marks + m.aptitude_marks),'/300')) AS 'Average Total Marks'
+FROM students AS s JOIN marks AS m ON s.student_id = m.student_id GROUP BY s.department ORDER BY AVG(m.python_marks + m.sql_marks + m.aptitude_marks) DESC;
 
 -- Q85. Display student_name, city, and total marks for students living in 'Chennai' scoring total marks > 240.
-
+SELECT s.student_name AS 'Name', s.city AS 'City', CONCAT((m.python_marks + m.sql_marks + m.aptitude_marks),'/300') AS 'Total Marks'
+FROM students AS s JOIN marks AS m ON s.student_id = m.student_id WHERE s.city = 'Chennai' AND (m.python_marks + m.sql_marks + m.aptitude_marks) > 240;
 
 -- Q86. For students with marks, display UPPER(student_name), department, and their performance category (from Q18).
+WITH student_marks AS (
+SELECT 
+	s.student_name,
+	s.student_id,
+    CONCAT((m.python_marks + m.sql_marks + m.aptitude_marks),'/300') AS total_marks
+FROM students AS s JOIN marks AS m ON s.student_id = m.student_id    
+)
+SELECT student_id AS 'Student ID', student_name AS 'Student Name', total_marks AS 'Total Marks',
+CASE
+	WHEN total_marks >= 250 THEN 'Excellent'
+    WHEN total_marks BETWEEN 200 AND 249 THEN 'Good'
+    WHEN total_marks BETWEEN 150 AND 199 THEN 'Average'
+    ELSE 'Needs Improvement'
+END AS 'Performance'
+FROM student_marks;
 
-
--- Q87. Find the department with the highest average SQL marks using GROUP BY, ORDER BY, and LIMIT 1.
-
+-- Q87. Find the department with the highest average SQL marks.
+SELECT s.department AS 'Department', 'SQL' AS 'Subject', ROUND(AVG(m.sql_marks),2) AS 'Average marks' 
+FROM students AS s JOIN marks AS m ON m.student_id = s.student_id GROUP BY s.department ORDER BY AVG(m.sql_marks) DESC LIMIT 1;
 
 -- Q88. Display student_name and subject marks for students whose name contains 'a' and total marks >= 200.
-
+SELECT s.student_name AS 'Name', m.* FROM students AS s JOIN marks AS m ON m.student_id = s.student_id 
+WHERE s.student_name LIKE '%a%' AND(m.python_marks + m.sql_marks + m.aptitude_marks) >=200;
 
 -- Q89. Display each department, total students enrolled, and total students who actually have marks recorded.
-
+SELECT s.department AS 'Department', COUNT(s.student_id) AS 'Total Students Enrolled', COUNT(m.student_id) AS 'Total Student Marks Recorded'
+FROM students AS s JOIN marks AS m ON m.student_id = s.student_id GROUP BY s.department;
 
 -- ==========================================================
 -- PART T: DML (INSERT, UPDATE, DELETE)
 -- ==========================================================
 
 -- Q90. Insert a new student: student_id 11, 'Kiran', department 'Java', city 'Chennai', age 20.
-
+INSERT INTO students (student_id, student_name, department, city, age) VALUES
+(11, 'Kiran', 'Java',  'Chennai', 20);
 
 -- Q91. Insert a corresponding mark record for student_id 11: mark_id 109, python 70, sql 75, aptitude 80.
-
+INSERT INTO marks (student_id, mark_id, python_marks, sql_marks, aptitude_marks) VALUES
+(11, 109, 70, 75, 80);
 
 -- Q92. Update the city of student 'Arun' to 'Bangalore'.
-
+UPDATE students SET city = 'Bangalore' WHERE student_name = 'Arun';
 
 -- Q93. Increase sql_marks by 5 for all students whose sql_marks are below 60.
-
+UPDATE students SET sql_marks = sql_marks + 5 WHERE sql_marks < 60;
 
 -- Q94. Multi-table UPDATE: Update the city of all students in the 'Testing' department to 'Trichy' using a JOIN update or subquery.
-
+UPDATE students SET city = 'Trichy' WHERE department IN (SELECT s.department FROM students AS s WHERE department = 'Testing');
 
 -- Q95. Multi-table UPDATE: Add 5 bonus marks to aptitude_marks for all students belonging to the 'Java' department.
-
+UPDATE marks SET aptitude_marks = aptitude_marks + 5 WHERE department IN (SELECT s.department FROM students AS s WHERE department = 'JAVA');
 
 -- Q96. Delete the marks record for student_id 11.
-
+DELETE FROM marks WHERE student_id = 11;
 
 -- Q97. Delete the student record for student_id 11.
-
+DELETE FROM student WHERE student_id = 11;
 
 -- Q98. Delete the two students without marks added in Q21 (student_id 9 and 10).
-
+DELETE FROM student WHERE student_id IN (9,10);
 
 -- ==========================================================
 -- PART U: DDL (ALTER, RENAME, TRUNCATE, DROP)
 -- ==========================================================
 
 -- Q99. Alter the students table to add a column named contact_no VARCHAR(15), then rename it to phone_no, and then drop it.
-
+ALTER TABLE students ADD COLUMN contact_no VARCHAR(15);
+ALTER TABLE students RENAME COLUMN contact_no TO phone_no;
+ALTER TABLE students DROP COLUMN contact_no;
 
 -- Q100. Rename table marks to student_marks, rename it back to marks, TRUNCATE marks, DROP marks, DROP students, and DROP DATABASE college_db.
+RENAME TABLE marks TO student_marks;
+RENAME TABLE student_marks TO marks;
+TRUNCATE marks;
+DROP TABLE marks;
+DROP TABLE students;
+DROP DATABASE college_db;
