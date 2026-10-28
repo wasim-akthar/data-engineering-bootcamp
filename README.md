@@ -1,18 +1,21 @@
-# 🚀 Data Engineering Bootcamp — SQL & Database Systems
+# 🚀 Data Engineering Bootcamp — SQL & Python
 
 [![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![SQL](https://img.shields.io/badge/Language-SQL%20(DDL%20%7C%20DML%20%7C%20DQL)-F80000?style=for-the-badge&logo=sqlite&logoColor=white)](https://en.wikipedia.org/wiki/SQL)
 [![Data Engineering](https://img.shields.io/badge/Domain-Data%20Engineering-007ACC?style=for-the-badge&logo=apache&logoColor=white)](#)
 [![Status](https://img.shields.io/badge/Progress-Active%20Learning-2ea44f?style=for-the-badge)](#)
 [![Maintained by](https://img.shields.io/badge/Author-Wasim%20Akthar-blueviolet?style=for-the-badge)](https://github.com/wasim-akthar)
 
-A structured, hands-on repository documenting my journey through the **Data Engineering Bootcamp**, featuring intensive practical coursework in **Relational Database Management Systems (RDBMS)**, advanced SQL query optimization, database schema modeling, and analytical problem-solving using **MySQL**.
+A structured, hands-on repository documenting my journey through the **Data Engineering Bootcamp**, featuring intensive practical coursework in **Relational Database Management Systems (RDBMS)**, advanced SQL query optimization, database schema modeling, and core **Python programming foundations** tailored for data pipelines and analytics.
 
 ---
 
 ## 📌 Repository Overview
 
-This repository serves as a centralized portfolio of daily coursework, class notes, speed drills, timed assessments, and capstone mini-projects completed during the bootcamp. The codebase showcases progressive mastery from core relational mechanics to advanced modern SQL paradigms including **Window Functions**, **Common Table Expressions (CTEs)**, **Database Views**, **Correlated Subqueries**, and complex relational schema design.
+This repository serves as a centralized portfolio of daily coursework, class notes, speed drills, timed assessments, and capstone mini-projects completed during the bootcamp. The codebase showcases progressive mastery across:
+1. **Relational Database Engineering (MySQL)**: From relational mechanics to advanced modern SQL paradigms including Window Functions, CTEs, Database Views, Correlated Subqueries, and complex schema design.
+2. **Core Python for Data Engineering**: Foundational programming, memory management, dynamic typing, built-in data types, input/output operations, and comprehensive operator mechanics with an emphasis on interview preparation and data pipeline readiness.
 
 ### 🌟 Key Highlights
 
@@ -20,9 +23,9 @@ This repository serves as a centralized portfolio of daily coursework, class not
 - **Two 100-Question Capstone Mini-Projects**:
   - **Mini Project 1**: End-to-end relational schema, constraints, multi-table joins, reporting, and data lifecycle management for a College Student Marks System.
   - **Mini Project 2 (Subqueries Edition)**: 100 progressive questions partitioned across 4 distinct difficulty tiers (Beginner, Intermediate, Hard, Interview Level).
-- **Production-Style Case Studies**: Real-world schema designs and query solutions for **Swiggy** (food delivery), **BookMyShow** (cinema ticketing), **Rapido** (ride-hailing), **Amazon Sales** (e-commerce revenue), and **Myntra** (product catalogs).
+- **Production-Style SQL Case Studies**: Real-world schema designs and query solutions for **Swiggy** (food delivery), **BookMyShow** (cinema ticketing), **Rapido** (ride-hailing), **Amazon Sales** (e-commerce revenue), and **Myntra** (product catalogs).
 - **Modern Analytical SQL**: In-depth implementations of Window Functions (`ROW_NUMBER`, `RANK`, `DENSE_RANK`, `NTILE`, `LAG`, `LEAD`), `PARTITION BY`, Common Table Expressions (`WITH`), and Database Views.
-- **Dual Documentation**: Production SQL scripts paired with structured Microsoft Word (`.docx`) submission deliverables.
+- **Python Foundations & Interview Notes**: Detailed class notes covering variables, memory pointer references, mutability vs. immutability, type casting, operator precedence, short-circuit evaluation, and time-complexity trade-offs (e.g., $O(1)$ set lookups vs. $O(n)$ list scans).
 
 ---
 
@@ -31,6 +34,17 @@ This repository serves as a centralized portfolio of daily coursework, class not
 ```plaintext
 data-engineering-bootcamp/
 ├── README.md
+├── Python Files/                    # Core Python programming & pipeline scripts
+│   ├── Class Assignments/           # Daily graded assignments & coding tasks
+│   ├── Class Tests/                 # Timed programming assessments & quizzes
+│   ├── Notes/                       # Daily lecture notes, syntax primers & deep-dives
+│   │   ├── Class Notes - 26-10-26 - Basics.py      # Python basics, syntax, print() & comments
+│   │   ├── Class Notes - 27-10-26 - Variables.py   # Variables, Data Types, I/O & Interview Tips
+│   │   ├── Class Notes - 28-10-26 - Operators.py   # Arithmetic, Comparison, Logical, Bitwise, etc.
+│   │   └── test.py                                 # Interactive practice script for all operators
+│   ├── Practice Tests/              # Speed drills & self-assessment challenges
+│   └── Self Practice Assignments/   # Intensive coding challenges & algorithm drills
+│
 └── SQL Files/
     ├── Class Assignments/           # Daily graded assignments & real-world scenario sets
     │   ├── DOCX files/              # Written assignment documentation & output reports
@@ -88,6 +102,29 @@ data-engineering-bootcamp/
 
 ---
 
+## 🐍 Python Curriculum & Engineering Progression
+
+```mermaid
+flowchart TD
+    P1["Python Basics & Syntax<br/>(print, comments, escape sequences)"] --> P2["Variables & Memory References<br/>(Dynamic Typing, Naming Rules, Pointer References)"]
+    P2 --> P3["Data Types & Mutability<br/>(int, float, str, bool, list, tuple, set, dict, None)"]
+    P3 --> P4["Standard Input & Output<br/>(print parameters, f-strings, input type casting)"]
+    P4 --> P5["Operator Mechanics & Precedence<br/>(Arithmetic, Relational, Logical, Assignment, Bitwise, Membership, Identity)"]
+    P5 --> P6["Data Pipeline Structures & OOP<br/>(Control Flow, Functions, Lambdas, Classes, Error Handling - Next Up)"]
+```
+
+### Python Module Breakdown
+
+| Module / Topic | Core Concepts Covered | Key Implementation Files |
+| :--- | :--- | :--- |
+| **1. Basics & Output** | `print()` syntax, string literals, newline `\n` escapes, basic expressions. | `Class Notes - 26-10-26 - Basics.py` |
+| **2. Variables & Dynamic Typing** | Variable assignment (`var = val`), reference pointers, dynamic typing at runtime, PEP 8 naming conventions, multiple assignment, and in-place variable swapping (`a, b = b, a`). | `Class Notes - 27-10-26 - Variables.py` |
+| **3. Data Types & Mutability** | Built-in primitives (`int`, `float`, `str`, `bool`, `NoneType`) vs collections (`list`, `tuple`, `set`, `dict`); mutable vs immutable types; hashing & dictionary key constraints; falsy values. | `Class Notes - 27-10-26 - Variables.py` |
+| **4. Input & Formatting** | `input()` string default behavior, type conversion (`int()`, `float()`), `sep` and `end` parameters in `print()`, string concatenation with `str()`, and modern formatted strings (f-strings). | `Class Notes - 27-10-26 - Variables.py` |
+| **5. Python Operators** | Comprehensive coverage of **Arithmetic** (`/` vs `//`, `%`), **Comparison** (chaining `10 < n < 20`), **Logical** (short-circuiting `and`, `or`, `not`), **Assignment** (`+=`, `-=`, etc.), **Membership** (`in`, `not in`), **Identity** (`is`, `is not`), **Bitwise** (`&`, `\|`, `^`, `~`, `<<`, `>>`), and **Precedence**. | `Class Notes - 28-10-26 - Operators.py`, `test.py` |
+
+---
+
 ## 🗺️ SQL Curriculum & Learning Progression
 
 ```mermaid
@@ -102,7 +139,7 @@ flowchart TD
     H --> I["Phase 9: End-to-End Capstone Mini-Projects<br/>(Mini Project 1 & 2 — 200 Questions, 4 Progressive Levels)"]
 ```
 
-### Module Breakdown
+### SQL Module Breakdown
 
 | Module / Topic | Core Concepts Covered | Key Implementation Files |
 | :--- | :--- | :--- |
@@ -184,33 +221,34 @@ flowchart TD
 ## 🛠️ Getting Started & Execution
 
 ### Prerequisites
-- [MySQL Server](https://dev.mysql.com/downloads/mysql/) (v8.0 or newer recommended for CTEs and Window Functions)
-- A GUI client such as [MySQL Workbench](https://www.mysql.com/products/workbench/) or [DBeaver](https://dbeaver.io/), or the MySQL command-line client (`mysql`).
+- **Python**: [Python 3.10+](https://www.python.org/)
+- **Database**: [MySQL Server](https://dev.mysql.com/downloads/mysql/) (v8.0 or newer recommended for CTEs and Window Functions)
+- **Tools / IDEs**: VS Code, [MySQL Workbench](https://www.mysql.com/products/workbench/) or [DBeaver](https://dbeaver.io/).
 
-### Quick Setup
+### Running Python Scripts
 
-1. **Clone the repository**:
-   ```bash
-   git clone git@github.com:wasim-akthar/data-engineering-bootcamp.git
-   cd data-engineering-bootcamp
-   ```
+```bash
+# Execute any notes or test scripts
+python "Python Files/Notes/Class Notes - 27-10-26 - Variables.py"
+python "Python Files/Notes/Class Notes - 28-10-26 - Operators.py"
+python "Python Files/Notes/test.py"
+```
 
-2. **Run a script via MySQL CLI**:
+### Running SQL Scripts
+
+1. **Via MySQL CLI**:
    ```bash
    mysql -u <username> -p < "SQL Files/Class Assignments/SQL Assignment 12-10-26 - Wasim Akthar.sql"
    ```
 
-3. **Or open in MySQL Workbench / DBeaver**:
+2. **Via MySQL Workbench / DBeaver**:
    - Open any `.sql` file in the IDE.
    - Execute the setup statements (`CREATE DATABASE`, `USE`, `CREATE TABLE`, `INSERT`).
    - Run the analytical query sections to verify outputs.
 
-> [!TIP]
-> In files like `SQL Assignment 12-10-26 - Wasim Akthar.sql` and `Practice Assignment Wasim Akthar - Pt 2.sql`, questions are structured sequentially. Run the initial setup and table seeding sections first before testing subsequent analytical queries or DML mutations.
-
 ---
 
-## 📈 Roadmap & Upcoming Modules
+## 📈 Roadmap & Progress Tracker
 
 This repository is continuously maintained as the bootcamp progresses:
 
@@ -221,7 +259,15 @@ This repository is continuously maintained as the bootcamp progresses:
   - [x] Window Functions & Analytical Ranking
   - [x] Common Table Expressions (CTEs) & Database Views
   - [x] Capstone Mini-Projects & Timed Evaluations
-- [ ] **Module 2**: Python for Data Engineering (Data Structures, OOP, Pandas, Polars)
+- [x] **Module 2**: Python for Data Engineering (In Progress)
+  - [x] Python Basics, Syntax, and Dynamic Typing
+  - [x] Built-in Primitive & Collection Data Types (Mutability vs. Immutability)
+  - [x] Standard Input, Output, and String Formatting (f-strings)
+  - [x] Comprehensive Operator Mechanics (Arithmetic, Comparison, Logical, Assignment, Membership, Identity, Bitwise)
+  - [ ] Control Flow, Iterations & Comprehensions
+  - [ ] Functions, Generators & Error Handling
+  - [ ] Object-Oriented Programming (OOP)
+  - [ ] Data Wrangling with Pandas & Polars
 - [ ] **Module 3**: Data Modeling & Dimensional Warehousing (Star/Snowflake Schema, SCDs)
 - [ ] **Module 4**: ETL / ELT Pipeline Development
 - [ ] **Module 5**: Distributed Computing with Apache Spark & PySpark
@@ -237,4 +283,4 @@ This repository is continuously maintained as the bootcamp progresses:
 - Repository: [data-engineering-bootcamp](https://github.com/wasim-akthar/data-engineering-bootcamp)
 
 ---
-*Contributions, suggestions, and feedback are welcome! ⭐ Star this repo if you find the SQL problem sets helpful.*
+*Contributions, suggestions, and feedback are welcome! ⭐ Star this repo if you find the SQL and Python materials helpful.*
