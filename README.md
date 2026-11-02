@@ -41,8 +41,14 @@ data-engineering-bootcamp/
 │   │   ├── Class Notes - 26-10-26 - Basics.py      # Python basics, syntax, print() & comments
 │   │   ├── Class Notes - 27-10-26 - Variables.py   # Variables, Data Types, I/O & Interview Tips
 │   │   ├── Class Notes - 28-10-26 - Operators.py   # Arithmetic, Comparison, Logical, Bitwise, etc.
-│   │   └── test.py                                 # Interactive practice script for all operators
+│   │   ├── Class Notes - 30-10-26 - Control Statements.py # If, Else, Elif, Ternary, Match-Case
+│   │   ├── Class Notes - 02-11-26 - Looping Statements.py # For, While, Range, Break, Continue, Else
+│   │   ├── Rough Work - Operators.py               # Hands-on practice with operators
+│   │   ├── Rough Work - Conditional Statements.py  # Practice drills for if/elif/else & ternary
+│   │   └── Rough Work - Looping Statements.py      # Practice drills for loops, patterns & ranges
 │   ├── Practice Tests/              # Speed drills & self-assessment challenges
+│   │   └── FAQs/                    # Classic interview coding challenges
+│   │       └── Greatest Of 3.py     # Chained ternary & logical comparison for 3 numbers
 │   └── Self Practice Assignments/   # Intensive coding challenges & algorithm drills
 │
 └── SQL Files/
@@ -121,7 +127,9 @@ flowchart TD
 | **2. Variables & Dynamic Typing** | Variable assignment (`var = val`), reference pointers, dynamic typing at runtime, PEP 8 naming conventions, multiple assignment, and in-place variable swapping (`a, b = b, a`). | `Class Notes - 27-10-26 - Variables.py` |
 | **3. Data Types & Mutability** | Built-in primitives (`int`, `float`, `str`, `bool`, `NoneType`) vs collections (`list`, `tuple`, `set`, `dict`); mutable vs immutable types; hashing & dictionary key constraints; falsy values. | `Class Notes - 27-10-26 - Variables.py` |
 | **4. Input & Formatting** | `input()` string default behavior, type conversion (`int()`, `float()`), `sep` and `end` parameters in `print()`, string concatenation with `str()`, and modern formatted strings (f-strings). | `Class Notes - 27-10-26 - Variables.py` |
-| **5. Python Operators** | Comprehensive coverage of **Arithmetic** (`/` vs `//`, `%`), **Comparison** (chaining `10 < n < 20`), **Logical** (short-circuiting `and`, `or`, `not`), **Assignment** (`+=`, `-=`, etc.), **Membership** (`in`, `not in`), **Identity** (`is`, `is not`), **Bitwise** (`&`, `\|`, `^`, `~`, `<<`, `>>`), and **Precedence**. | `Class Notes - 28-10-26 - Operators.py`, `test.py` |
+| **5. Python Operators** | Comprehensive coverage of **Arithmetic** (`/` vs `//`, `%`), **Comparison** (chaining `10 < n < 20`), **Logical** (short-circuiting `and`, `or`, `not`), **Assignment** (`+=`, `-=`, etc.), **Membership** (`in`, `not in`), **Identity** (`is`, `is not`), **Bitwise** (`&`, `\|`, `^`, `~`, `<<`, `>>`), and **Precedence**. | `Class Notes - 28-10-26 - Operators.py`, `Rough Work - Operators.py` |
+| **6. Control Statements & Branching** | Python indentation rules (PEP 8), `if`, `if-else`, `if-elif-else` ladder, nested conditionals, ternary expressions & chained ternaries (`Greatest of 3`), structural pattern matching (`match-case`), and `pass` statements. | `Class Notes - 30-10-26 - Control Statements.py`, `Rough Work - Conditional Statements.py`, `Practice Tests/FAQs/Greatest Of 3.py` |
+| **7. Looping & Iteration Mechanics** | `for` loops across collections/mappings, lazy `range()` generator mechanics (start, stop, step), `while` loops, loop flow control (`break`, `continue`, `pass`), Python-unique `loop-else` ("nobreak") clause, nested loops, and loop helpers (`enumerate()`, `zip()`). | `Class Notes - 02-11-26 - Looping Statements.py`, `Rough Work - Looping Statements.py` |
 
 ---
 
@@ -228,10 +236,12 @@ flowchart TD
 ### Running Python Scripts
 
 ```bash
-# Execute any notes or test scripts
+# Execute class notes and drills
 python "Python Files/Notes/Class Notes - 27-10-26 - Variables.py"
 python "Python Files/Notes/Class Notes - 28-10-26 - Operators.py"
-python "Python Files/Notes/test.py"
+python "Python Files/Notes/Class Notes - 30-10-26 - Control Statements.py"
+python "Python Files/Notes/Class Notes - 02-11-26 - Looping Statements.py"
+python "Python Files/Practice Tests/FAQs/Greatest Of 3.py"
 ```
 
 ### Running SQL Scripts
@@ -264,7 +274,9 @@ This repository is continuously maintained as the bootcamp progresses:
   - [x] Built-in Primitive & Collection Data Types (Mutability vs. Immutability)
   - [x] Standard Input, Output, and String Formatting (f-strings)
   - [x] Comprehensive Operator Mechanics (Arithmetic, Comparison, Logical, Assignment, Membership, Identity, Bitwise)
-  - [ ] Control Flow, Iterations & Comprehensions
+  - [x] Control Flow & Conditional Branching (if, elif, else, ternary, match-case)
+  - [x] Iterations & Looping Statements (for, while, range, break, continue, loop-else, enumerate, zip)
+  - [ ] Comprehensions (list, dict, set comprehensions) & Generators
   - [ ] Functions, Generators & Error Handling
   - [ ] Object-Oriented Programming (OOP)
   - [ ] Data Wrangling with Pandas & Polars
