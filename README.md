@@ -33,9 +33,13 @@ This repository serves as a centralized portfolio of daily coursework, class not
 
 ```plaintext
 data-engineering-bootcamp/
+├── .gitignore                       # Repository ignore rules (temporary files, caches)
 ├── README.md
 ├── Python Files/                    # Core Python programming & pipeline scripts
-│   ├── Class Assignments/           # Daily graded assignments & coding tasks
+│   ├── Class Assignments/           # Daily graded assignments & coding questionnaires
+│   │   ├── DOCX Files/              # Written assignment documentation & output reports
+│   │   │   └── Python Assignment 30-10-26 - Wasim Akthar.docx
+│   │   └── Python Assignment - 30-10-26 - Wasim Akthar.py # 50-Question Comprehensive Python Drill
 │   ├── Class Tests/                 # Timed programming assessments & quizzes
 │   ├── Notes/                       # Daily lecture notes, syntax primers & deep-dives
 │   │   ├── Class Notes - 26-10-26 - Basics.py      # Python basics, syntax, print() & comments
@@ -43,9 +47,13 @@ data-engineering-bootcamp/
 │   │   ├── Class Notes - 28-10-26 - Operators.py   # Arithmetic, Comparison, Logical, Bitwise, etc.
 │   │   ├── Class Notes - 30-10-26 - Control Statements.py # If, Else, Elif, Ternary, Match-Case
 │   │   ├── Class Notes - 02-11-26 - Looping Statements.py # For, While, Range, Break, Continue, Else
+│   │   ├── Class Notes - 04-11-26 - Strings.py     # String Immutability, Slicing, Methods, Patterns
+│   │   ├── Class Notes - 10-11-26 - Lists.py       # Lists In-Depth, Mutability, Copies, Slicing, Big-O
 │   │   ├── Rough Work - Operators.py               # Hands-on practice with operators
 │   │   ├── Rough Work - Conditional Statements.py  # Practice drills for if/elif/else & ternary
-│   │   └── Rough Work - Looping Statements.py      # Practice drills for loops, patterns & ranges
+│   │   ├── Rough Work - Looping Statements.py      # Practice drills for loops, patterns & ranges
+│   │   ├── Rough Work - Strings.py                 # String manipulation practice drills
+│   │   └── Rough Work - Lists.py                   # List operations & exercises
 │   ├── Practice Tests/              # Speed drills & self-assessment challenges
 │   │   └── FAQs/                    # Classic interview coding challenges
 │   │       └── Greatest Of 3.py     # Chained ternary & logical comparison for 3 numbers
@@ -130,6 +138,9 @@ flowchart TD
 | **5. Python Operators** | Comprehensive coverage of **Arithmetic** (`/` vs `//`, `%`), **Comparison** (chaining `10 < n < 20`), **Logical** (short-circuiting `and`, `or`, `not`), **Assignment** (`+=`, `-=`, etc.), **Membership** (`in`, `not in`), **Identity** (`is`, `is not`), **Bitwise** (`&`, `\|`, `^`, `~`, `<<`, `>>`), and **Precedence**. | `Class Notes - 28-10-26 - Operators.py`, `Rough Work - Operators.py` |
 | **6. Control Statements & Branching** | Python indentation rules (PEP 8), `if`, `if-else`, `if-elif-else` ladder, nested conditionals, ternary expressions & chained ternaries (`Greatest of 3`), structural pattern matching (`match-case`), and `pass` statements. | `Class Notes - 30-10-26 - Control Statements.py`, `Rough Work - Conditional Statements.py`, `Practice Tests/FAQs/Greatest Of 3.py` |
 | **7. Looping & Iteration Mechanics** | `for` loops across collections/mappings, lazy `range()` generator mechanics (start, stop, step), `while` loops, loop flow control (`break`, `continue`, `pass`), Python-unique `loop-else` ("nobreak") clause, nested loops, and loop helpers (`enumerate()`, `zip()`). | `Class Notes - 02-11-26 - Looping Statements.py`, `Rough Work - Looping Statements.py` |
+| **8. String Manipulation & Text Cleansing** | String immutability and memory caching (interning), indexing & step slicing (`s[::-1]`), concatenation performance anti-patterns (`+=` vs `"".join()`), stripping/cleaning (`strip`, `removeprefix`), search/counting (`find` vs `index`), string validation (`is...`), formatted strings (f-strings), and interview patterns (Palindromes, Anagrams, Vowels, Deduplication). | `Class Notes - 04-11-26 - Strings.py`, `Rough Work - Strings.py` |
+| **9. Python Lists & Sequence Operations** | Ordered, mutable, dynamic over-allocation, indexing, slicing, in-place modification, adding (`append` vs `extend` vs `insert`), removing (`remove` vs `pop` vs `del` vs `clear`), searching (`count`, `index`), sorting (`sort()` vs `sorted()`), shallow vs deep copy (`copy.deepcopy()`), list comprehensions, Big-O time complexity table, and interview patterns (second largest, deduplication, list rotation, move zeros, merge sorted lists). | `Class Notes - 10-11-26 - Lists.py`, `Rough Work - Lists.py` |
+| **10. Python Practice Questionnaire** | Comprehensive 50-question hands-on drill spanning Variables, Data Types, Type Conversions, String/Integer I/O, Operators, and Control Statements with accompanying Microsoft Word output submission report. | `Python Assignment - 30-10-26 - Wasim Akthar.py`, `Python Assignment 30-10-26 - Wasim Akthar.docx` |
 
 ---
 
@@ -241,6 +252,9 @@ python "Python Files/Notes/Class Notes - 27-10-26 - Variables.py"
 python "Python Files/Notes/Class Notes - 28-10-26 - Operators.py"
 python "Python Files/Notes/Class Notes - 30-10-26 - Control Statements.py"
 python "Python Files/Notes/Class Notes - 02-11-26 - Looping Statements.py"
+python "Python Files/Notes/Class Notes - 04-11-26 - Strings.py"
+python "Python Files/Notes/Class Notes - 10-11-26 - Lists.py"
+python "Python Files/Class Assignments/Python Assignment - 30-10-26 - Wasim Akthar.py"
 python "Python Files/Practice Tests/FAQs/Greatest Of 3.py"
 ```
 
@@ -276,7 +290,9 @@ This repository is continuously maintained as the bootcamp progresses:
   - [x] Comprehensive Operator Mechanics (Arithmetic, Comparison, Logical, Assignment, Membership, Identity, Bitwise)
   - [x] Control Flow & Conditional Branching (if, elif, else, ternary, match-case)
   - [x] Iterations & Looping Statements (for, while, range, break, continue, loop-else, enumerate, zip)
-  - [ ] Comprehensions (list, dict, set comprehensions) & Generators
+  - [x] In-Depth String Manipulation & Data Cleansing (immutability, slicing, methods, f-strings, regex prep)
+  - [x] Python Lists & In-Memory Transformations (mutability, memory over-allocation, shallow vs deep copy, Big-O, comprehensions)
+  - [ ] Tuples, Sets & Dictionaries (Hashing, Set Theory, Key Constraints)
   - [ ] Functions, Generators & Error Handling
   - [ ] Object-Oriented Programming (OOP)
   - [ ] Data Wrangling with Pandas & Polars
