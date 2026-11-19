@@ -58,7 +58,8 @@ print(not_current)
 products = {"TV", "Fridge", "AC", "Sofa"}
 product_count = len(list(products))
 print(product_count)
-number_set = set({range(1,6)})
+number_set = set(range(1,6))
+print(number_set)
 new_products = products.copy()
 print (
   products.add("Washing Machine"),
@@ -69,3 +70,11 @@ print (
   new_products.clear(),
   "\n Clear:", new_products
 )
+
+python_students = {"Veena","Leena", "Meena", "Teena", "Santhoshi"}
+java_students = {"Veena", "Karthi", "Parthi", "Moorthi", "Santhoshi"}
+
+print(python_students | java_students)
+print(python_students & java_students)
+print(python_students - java_students)
+print(python_students ^ java_students)
