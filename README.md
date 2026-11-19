@@ -43,6 +43,7 @@ data-engineering-bootcamp/
 │   │   ├── Python Assignment - 30-10-26 - Wasim Akthar.py # 50-Question Comprehensive Python Drill
 │   │   └── Python Assignment - 12-11-26 - Wasim Akthar.py # 50-Question Scenario-Based Assignment
 │   ├── Class Tests/                 # Timed programming assessments & quizzes
+│   │   └── Class Test - 18-11-26 - Wasim Akthar.py # Practical assessment on Lists, Tuples, Sets & Dictionaries
 │   ├── Notes/                       # Daily lecture notes, syntax primers & deep-dives
 │   │   ├── Class Notes - 26-10-26 - Basics.py      # Python basics, syntax, print() & comments
 │   │   ├── Class Notes - 27-10-26 - Variables.py   # Variables, Data Types, I/O & Interview Tips
@@ -52,14 +53,18 @@ data-engineering-bootcamp/
 │   │   ├── Class Notes - 04-11-26 - Strings.py     # String Immutability, Slicing, Methods, Patterns
 │   │   ├── Class Notes - 10-11-26 - Lists.py       # Lists In-Depth, Mutability, Copies, Slicing, Big-O
 │   │   ├── Class Notes - 12-11-26 - Tuples.py      # Tuples In-Depth, Immutability, Unpacking, Namedtuples
-│   │   └── Class Notes - 13-11-26 - Sets.py        # Sets & Frozensets, Hash Tables, Set Algebra, Big-O
+│   │   ├── Class Notes - 13-11-26 - Sets.py        # Sets & Frozensets, Hash Tables, Set Algebra, Big-O
+│   │   ├── Class Notes - 16-11-26 - Dictionaries.py # Dicts In-Depth, JSON Payloads, Views, Big-O, defaultdict
+│   │   └── Class Notes - 17-11-26 - Functions.py   # Functions, *args/**kwargs, LEGB Scope, Closures, Decorators, Generators
 │   ├── Rough Work/                  # Interactive hands-on practice & scratch drills
 │   │   ├── Rough Work - Operators.py               # Hands-on practice with operators
 │   │   ├── Rough Work - Conditional Statements.py  # Practice drills for if/elif/else & ternary
 │   │   ├── Rough Work - Looping Statements.py      # Practice drills for loops, patterns & ranges
 │   │   ├── Rough Work - Strings.py                 # String manipulation practice drills
 │   │   ├── Rough Work - Lists.py                   # List operations & exercises
-│   │   └── Rough Work - Sets.py                    # Set operations & deduplication drills
+│   │   ├── Rough Work - Sets.py                    # Set operations & deduplication drills
+│   │   ├── Rough Work - Dictionaries.py            # Dictionary key-value manipulations & grouping
+│   │   └── Rough Work - Functions.py               # Function definitions, scopes & decorator tests
 │   ├── Practice Tests/              # Speed drills & self-assessment challenges
 │   │   └── FAQs/                    # Classic interview coding challenges
 │   │       └── Greatest Of 3.py     # Chained ternary & logical comparison for 3 numbers
@@ -148,8 +153,11 @@ flowchart TD
 | **9. Python Lists & Sequence Operations** | Ordered, mutable, dynamic over-allocation, indexing, slicing, in-place modification, adding (`append` vs `extend` vs `insert`), removing (`remove` vs `pop` vs `del` vs `clear`), searching (`count`, `index`), sorting (`sort()` vs `sorted()`), shallow vs deep copy (`copy.deepcopy()`), list comprehensions, Big-O time complexity table, and interview patterns (second largest, deduplication, list rotation, move zeros, merge sorted lists). | `Class Notes - 10-11-26 - Lists.py`, `Rough Work - Lists.py` |
 | **10. Python Tuples & Data Integrity** | Ordered, immutable, heterogeneous, single-element tuple trap `(5,)`, indexing & slicing, tuple packing & unpacking, extended unpacking with `*`, the mutable-object-inside-tuple nuance, DB-API cursor row immutability, `namedtuple` schemas, and memory footprint benchmarks vs lists. | `Class Notes - 12-11-26 - Tuples.py` |
 | **11. Python Sets & Hash-Based Algebra** | Unordered, unique, mutable collections, empty set trap `set()` vs `{}`, duplicate purging, `add` vs `update`, `remove` vs `discard` error handling, mathematical set theory (Union `\|`, Intersection `&`, Difference `-`, Symmetric Difference `^`), in-place mutations, subset/superset checks, immutable `frozenset` as dictionary keys, set comprehensions, $O(1)$ hash table lookup mechanics, and data reconciliation discrepancy detection. | `Class Notes - 13-11-26 - Sets.py`, `Rough Work - Sets.py` |
-| **12. Python Practice Questionnaire** | Comprehensive 50-question hands-on drill spanning Variables, Data Types, Type Conversions, String/Integer I/O, Operators, and Control Statements with accompanying Microsoft Word output submission report. | `Python Assignment - 30-10-26 - Wasim Akthar.py`, `Python Assignment - 30-10-26 - Wasim Akthar.docx` |
-| **13. Python Scenario-Based Assignment** | 50 scenario-driven questions simulating real-world engineering data: Employee master data, company metrics, salary calculations, customer profiles, e-commerce orders, temperature thresholds, student grading, and list/string processing with structured Word report documentation. | `Python Assignment - 12-11-26 - Wasim Akthar.py`, `Python Assignment - 12-11-26 - Wasim Akthar.docx` |
+| **12. Python Dictionaries & Hash Mapping** | Ordered key-value pairs (Python 3.7+), hashable immutable key constraints, bracket access vs safe `.get()`, addition/overwrites, Python 3.9+ merge operators (`\|` and `\|=`), `pop` vs `popitem` vs `del` vs `clear`, dynamic view objects (`keys()`, `values()`, `items()`) and key set algebra, shallow vs deep copying, dictionary comprehensions (filtering, value swapping, pairing with `zip`), `defaultdict` and `Counter`, dense hash table $O(1)$ lookup mechanics, and interview patterns (word frequency, multi-dict summation, group anagrams, nested JSON flattening). | `Class Notes - 16-11-26 - Dictionaries.py`, `Rough Work - Dictionaries.py` |
+| **13. Functions & Modular Engineering** | Function definitions, implicit `None` returns, multi-value returns via tuple packing/unpacking, parameter vs argument taxonomy, default mutable argument trap (`def f(x=[])` bug & fix), `*args` and `**kwargs`, positional-only (`/`) & keyword-only (`*`) enforcement, variable scoping & the **LEGB rule** (`global` and `nonlocal`), pass-by-object-reference mechanics, anonymous lambda expressions, higher-order functional tools (`map`, `filter`, `reduce`), recursion limits, execution timing decorators & closures, memory-efficient streaming generators (`yield`), and interview patterns (prime check, nested list flattening, memoized Fibonacci). | `Class Notes - 17-11-26 - Functions.py`, `Rough Work - Functions.py` |
+| **14. Timed Python Collections Evaluation** | Comprehensive hands-on test evaluating operations across all 4 built-in Python collections (**Lists**, **Tuples**, **Sets**, and **Dictionaries**): item manipulation, immutability constraints, set algebra (union, intersection, difference), and key-value lookups. | `Class Test - 18-11-26 - Wasim Akthar.py` |
+| **15. Python Practice Questionnaire** | Comprehensive 50-question hands-on drill spanning Variables, Data Types, Type Conversions, String/Integer I/O, Operators, and Control Statements with accompanying Microsoft Word output submission report. | `Python Assignment - 30-10-26 - Wasim Akthar.py`, `Python Assignment - 30-10-26 - Wasim Akthar.docx` |
+| **16. Python Scenario-Based Assignment** | 50 scenario-driven questions simulating real-world engineering data: Employee master data, company metrics, salary calculations, customer profiles, e-commerce orders, temperature thresholds, student grading, and list/string processing with structured Word report documentation. | `Python Assignment - 12-11-26 - Wasim Akthar.py`, `Python Assignment - 12-11-26 - Wasim Akthar.docx` |
 
 ---
 
@@ -265,6 +273,9 @@ python "Python Files/Notes/Class Notes - 04-11-26 - Strings.py"
 python "Python Files/Notes/Class Notes - 10-11-26 - Lists.py"
 python "Python Files/Notes/Class Notes - 12-11-26 - Tuples.py"
 python "Python Files/Notes/Class Notes - 13-11-26 - Sets.py"
+python "Python Files/Notes/Class Notes - 16-11-26 - Dictionaries.py"
+python "Python Files/Notes/Class Notes - 17-11-26 - Functions.py"
+python "Python Files/Class Tests/Class Test - 18-11-26 - Wasim Akthar.py"
 python "Python Files/Class Assignments/Python Assignment - 30-10-26 - Wasim Akthar.py"
 python "Python Files/Class Assignments/Python Assignment - 12-11-26 - Wasim Akthar.py"
 python "Python Files/Practice Tests/FAQs/Greatest Of 3.py"
@@ -306,8 +317,9 @@ This repository is continuously maintained as the bootcamp progresses:
   - [x] Python Lists & In-Memory Transformations (mutability, memory over-allocation, shallow vs deep copy, Big-O, comprehensions)
   - [x] Python Tuples & Data Integrity (immutability, packing/unpacking, namedtuples, DB row fetches)
   - [x] Python Sets & Hash-Based Algebra (unique constraints, set algebra, frozenset, O(1) lookups, reconciliation)
-  - [ ] Python Dictionaries & Hash Maps (Key-Value modeling, nested JSON parsing, dictionary comprehensions)
-  - [ ] Functions, Generators & Error Handling
+  - [x] Python Dictionaries & Hash Mapping (key-value modeling, JSON payloads, view set algebra, defaultdict, Counter, nested flattening)
+  - [x] Functions, Generators & Modular Engineering (LEGB scoping, *args/**kwargs, closures, decorators, yield streams)
+  - [ ] Error & Exception Handling (try-except-finally, custom exceptions)
   - [ ] Object-Oriented Programming (OOP)
   - [ ] Data Wrangling with Pandas & Polars
 - [ ] **Module 3**: Data Modeling & Dimensional Warehousing (Star/Snowflake Schema, SCDs)
