@@ -23,9 +23,10 @@ This repository serves as a centralized portfolio of daily coursework, class not
 - **Two 100-Question Capstone Mini-Projects**:
   - **Mini Project 1**: End-to-end relational schema, constraints, multi-table joins, reporting, and data lifecycle management for a College Student Marks System.
   - **Mini Project 2 (Subqueries Edition)**: 100 progressive questions partitioned across 4 distinct difficulty tiers (Beginner, Intermediate, Hard, Interview Level).
-- **Production-Style SQL Case Studies**: Real-world schema designs and query solutions for **Swiggy** (food delivery), **BookMyShow** (cinema ticketing), **Rapido** (ride-hailing), **Amazon Sales** (e-commerce revenue), and **Myntra** (product catalogs).
+- **Production-Style SQL Case Studies**: Real-world schema designs and query solutions for **Google Pay (GPay)** (payments, balance auditing, transaction logs), **Swiggy** (food delivery), **BookMyShow** (cinema ticketing), **Rapido** (ride-hailing), **Amazon Sales** (e-commerce revenue), and **Myntra** (product catalogs).
 - **Modern Analytical SQL**: In-depth implementations of Window Functions (`ROW_NUMBER`, `RANK`, `DENSE_RANK`, `NTILE`, `LAG`, `LEAD`), `PARTITION BY`, Common Table Expressions (`WITH`), and Database Views.
 - **Python Foundations & Interview Notes**: Detailed class notes covering variables, memory pointer references, mutability vs. immutability, type casting, operator precedence, short-circuit evaluation, and time-complexity trade-offs (e.g., $O(1)$ set lookups vs. $O(n)$ list scans).
+- **Production-Grade Object-Oriented Programming (OOP)**: Exhaustive three-part OOP curriculum covering classes, objects, constructor initialization, class vs. instance attributes, magic dunder methods, property descriptors (`@property`), the 4 pillars (Encapsulation, 5 types of Inheritance, Duck Typing & Overriding Polymorphism, ABC Abstraction contracts), C3 Linearization MRO, Composition architectures, Context Managers (`__enter__`/`__exit__`), memory optimization with `__slots__` (saving 40-60% RAM), and enterprise Design Patterns (Singleton, Factory, Template Method).
 
 ---
 
@@ -55,7 +56,10 @@ data-engineering-bootcamp/
 │   │   ├── Class Notes - 12-11-26 - Tuples.py      # Tuples In-Depth, Immutability, Unpacking, Namedtuples
 │   │   ├── Class Notes - 13-11-26 - Sets.py        # Sets & Frozensets, Hash Tables, Set Algebra, Big-O
 │   │   ├── Class Notes - 16-11-26 - Dictionaries.py # Dicts In-Depth, JSON Payloads, Views, Big-O, defaultdict
-│   │   └── Class Notes - 17-11-26 - Functions.py   # Functions, *args/**kwargs, LEGB Scope, Closures, Decorators, Generators
+│   │   ├── Class Notes - 17-11-26 - Functions.py   # Functions, *args/**kwargs, LEGB Scope, Closures, Decorators, Generators
+│   │   ├── Class Notes - 20-11-26 - OOP Part 1 - Classes and Objects.py # Classes, self, Class/Instance Attrs, Dunders, Properties
+│   │   ├── Class Notes - 20-11-26 - OOP Part 2 - Four Pillars.py # Encapsulation, Inheritance, MRO, Polymorphism, ABC Abstraction
+│   │   └── Class Notes - 20-11-26 - OOP Part 3 - Advanced and Patterns.py # Composition, Operators, Context Managers, Slots, Design Patterns
 │   ├── Rough Work/                  # Interactive hands-on practice & scratch drills
 │   │   ├── Rough Work - Operators.py               # Hands-on practice with operators
 │   │   ├── Rough Work - Conditional Statements.py  # Practice drills for if/elif/else & ternary
@@ -64,7 +68,8 @@ data-engineering-bootcamp/
 │   │   ├── Rough Work - Lists.py                   # List operations & exercises
 │   │   ├── Rough Work - Sets.py                    # Set operations & deduplication drills
 │   │   ├── Rough Work - Dictionaries.py            # Dictionary key-value manipulations & grouping
-│   │   └── Rough Work - Functions.py               # Function definitions, scopes & decorator tests
+│   │   ├── Rough Work - Functions.py               # Function definitions, scopes, *args/**kwargs drills
+│   │   └── Rough Work - OOPS.py                    # Hands-on OOP drills: Single, Multiple, Multi-Level & Hierarchical Inheritance
 │   ├── Practice Tests/              # Speed drills & self-assessment challenges
 │   │   └── FAQs/                    # Classic interview coding challenges
 │   │       └── Greatest Of 3.py     # Chained ternary & logical comparison for 3 numbers
@@ -87,7 +92,8 @@ data-engineering-bootcamp/
     │   ├── SQL Assignment 09-10-26 - Wasim Akthar.sql  # E-Commerce Application & Constraints (30 Qs)
     │   ├── SQL Assignment 12-10-26 - Wasim Akthar.sql  # Mini-Project 1: Student Marks System (100 Qs)
     │   ├── SQL Assignment 15-10-26 - Wasim Akthar.sql  # Customers & Orders (Joins & Subqueries)
-    │   └── SQL Assignment 20-10-26 - Wasim Akthar.sql  # Student Details: Subqueries & Window Functions
+    │   ├── SQL Assignment 20-10-26 - Wasim Akthar.sql  # Student Details: Subqueries & Window Functions
+    │   └── SQL Assignment 26-10-26 - Wasim Akthar.sql  # GPay Payment App (30 Qs: DDL, Joins, Windows, CTEs)
     │
     ├── Class Tests/                 # Timed assessments & evaluations under exam conditions
     │   ├── Class Test 15-10-26.sql  # Assessment on Joins, Aggregations & Subqueries
@@ -132,10 +138,13 @@ data-engineering-bootcamp/
 ```mermaid
 flowchart TD
     P1["Python Basics & Syntax<br/>(print, comments, escape sequences)"] --> P2["Variables & Memory References<br/>(Dynamic Typing, Naming Rules, Pointer References)"]
-    P2 --> P3["Data Types & Mutability<br/>(int, float, str, bool, list, tuple, set, dict, None)"]
-    P3 --> P4["Standard Input & Output<br/>(print parameters, f-strings, input type casting)"]
-    P4 --> P5["Operator Mechanics & Precedence<br/>(Arithmetic, Relational, Logical, Assignment, Bitwise, Membership, Identity)"]
-    P5 --> P6["Data Pipeline Structures & OOP<br/>(Control Flow, Functions, Lambdas, Classes, Error Handling - Next Up)"]
+    P2 --> P3["Data Types & Mutability<br/>(Primitives, Immutability, Memory Interning)"]
+    P3 --> P4["Standard Input & Output<br/>(Type Casting, sep/end, f-strings)"]
+    P4 --> P5["Operator Mechanics & Precedence<br/>(Arithmetic, Logical Short-Circuit, Bitwise, Chained Relational)"]
+    P5 --> P6["Control Flow & Iteration<br/>(if/elif/else, match-case, for/while, range, loop-else, zip/enumerate)"]
+    P6 --> P7["In-Depth Collections & Hash Tables<br/>(Strings, Lists, Tuples, Sets & Dictionaries, Big-O Complexity)"]
+    P7 --> P8["Functions, Closures & Generators<br/>(*args/**kwargs, LEGB Scope, Lambdas, Decorators, Yield Streams)"]
+    P8 --> P9["Object-Oriented Programming (OOP)<br/>(Classes, 4 Pillars, MRO, Dunders, Descriptors, Slots & Design Patterns)"]
 ```
 
 ### Python Module Breakdown
@@ -154,10 +163,13 @@ flowchart TD
 | **10. Python Tuples & Data Integrity** | Ordered, immutable, heterogeneous, single-element tuple trap `(5,)`, indexing & slicing, tuple packing & unpacking, extended unpacking with `*`, the mutable-object-inside-tuple nuance, DB-API cursor row immutability, `namedtuple` schemas, and memory footprint benchmarks vs lists. | `Class Notes - 12-11-26 - Tuples.py` |
 | **11. Python Sets & Hash-Based Algebra** | Unordered, unique, mutable collections, empty set trap `set()` vs `{}`, duplicate purging, `add` vs `update`, `remove` vs `discard` error handling, mathematical set theory (Union `\|`, Intersection `&`, Difference `-`, Symmetric Difference `^`), in-place mutations, subset/superset checks, immutable `frozenset` as dictionary keys, set comprehensions, $O(1)$ hash table lookup mechanics, and data reconciliation discrepancy detection. | `Class Notes - 13-11-26 - Sets.py`, `Rough Work - Sets.py` |
 | **12. Python Dictionaries & Hash Mapping** | Ordered key-value pairs (Python 3.7+), hashable immutable key constraints, bracket access vs safe `.get()`, addition/overwrites, Python 3.9+ merge operators (`\|` and `\|=`), `pop` vs `popitem` vs `del` vs `clear`, dynamic view objects (`keys()`, `values()`, `items()`) and key set algebra, shallow vs deep copying, dictionary comprehensions (filtering, value swapping, pairing with `zip`), `defaultdict` and `Counter`, dense hash table $O(1)$ lookup mechanics, and interview patterns (word frequency, multi-dict summation, group anagrams, nested JSON flattening). | `Class Notes - 16-11-26 - Dictionaries.py`, `Rough Work - Dictionaries.py` |
-| **13. Functions & Modular Engineering** | Function definitions, implicit `None` returns, multi-value returns via tuple packing/unpacking, parameter vs argument taxonomy, default mutable argument trap (`def f(x=[])` bug & fix), `*args` and `**kwargs`, positional-only (`/`) & keyword-only (`*`) enforcement, variable scoping & the **LEGB rule** (`global` and `nonlocal`), pass-by-object-reference mechanics, anonymous lambda expressions, higher-order functional tools (`map`, `filter`, `reduce`), recursion limits, execution timing decorators & closures, memory-efficient streaming generators (`yield`), and interview patterns (prime check, nested list flattening, memoized Fibonacci). | `Class Notes - 17-11-26 - Functions.py`, `Rough Work - Functions.py` |
-| **14. Timed Python Collections Evaluation** | Comprehensive hands-on test evaluating operations across all 4 built-in Python collections (**Lists**, **Tuples**, **Sets**, and **Dictionaries**): item manipulation, immutability constraints, set algebra (union, intersection, difference), and key-value lookups. | `Class Test - 18-11-26 - Wasim Akthar.py` |
-| **15. Python Practice Questionnaire** | Comprehensive 50-question hands-on drill spanning Variables, Data Types, Type Conversions, String/Integer I/O, Operators, and Control Statements with accompanying Microsoft Word output submission report. | `Python Assignment - 30-10-26 - Wasim Akthar.py`, `Python Assignment - 30-10-26 - Wasim Akthar.docx` |
-| **16. Python Scenario-Based Assignment** | 50 scenario-driven questions simulating real-world engineering data: Employee master data, company metrics, salary calculations, customer profiles, e-commerce orders, temperature thresholds, student grading, and list/string processing with structured Word report documentation. | `Python Assignment - 12-11-26 - Wasim Akthar.py`, `Python Assignment - 12-11-26 - Wasim Akthar.docx` |
+| **13. Functions & Modular Engineering** | Function definitions, implicit `None` returns, multi-value returns via tuple packing/unpacking, parameter vs argument taxonomy, default mutable argument trap (`def f(x=[])` bug & fix), positional `*args` and arbitrary keyword `**kwargs` unpacking with nested dictionaries (e.g., Swiggy order processing), positional-only (`/`) & keyword-only (`*`) enforcement, variable scoping & the **LEGB rule** (`global` and `nonlocal`), pass-by-object-reference mechanics, anonymous lambda expressions, higher-order functional tools (`map`, `filter`, `reduce`), recursion limits, execution timing decorators & closures, memory-efficient streaming generators (`yield`), and interview patterns (prime check, nested list flattening, memoized Fibonacci). | `Class Notes - 17-11-26 - Functions.py`, `Rough Work - Functions.py` |
+| **14. OOP Part 1: Classes, Attributes & Methods** | Class blueprints vs concrete instances (cookie-cutter analogy), constructor `__init__`, explicit `self` binding, Class Attributes vs. Instance Attributes and shadowing pitfalls, Instance vs. `@classmethod` (alternative constructors via `cls`) vs. `@staticmethod` (utility helpers), core magic dunder methods (`__str__`, `__repr__`, `__len__`, `__eq__`), property decorators (`@property`, `@setter`, `@deleter`), and an end-to-end production ETL pipeline class. | `Class Notes - 20-11-26 - OOP Part 1 - Classes and Objects.py` |
+| **15. OOP Part 2: The 4 Pillars of OOP** | Exhaustive reference guide for the 4 pillars: **Encapsulation** (Public, Protected `_`, Private `__`, Getters/Setters, Name Mangling verification `_Class__attr`), **Inheritance** (Detailed breakdown and implementation of all 5 types: Single, Multi-Level, Hierarchical, Multiple, and Hybrid; `super()` mechanics; Method Resolution Order via C3 Linearization algorithm), **Polymorphism** (Method Overriding, Duck Typing across Spark/Pandas/SQL engines, and Operator Overloading via dunder methods), and **Abstraction** (`abc` module, `ABC`, `@abstractmethod` contract enforcement, Template Method design pattern, and direct instantiation guards). | `Class Notes - 20-11-26 - OOP Part 2 - Four Pillars.py`, `Rough Work - OOPS.py` |
+| **16. OOP Part 3: Advanced OOP & Design Patterns** | Composition over Inheritance ("HAS-A" vs "IS-A") in modular pipeline architectures, custom Operator Overloading (`__add__`, `__gt__` for `Money` objects), Custom Context Managers (`__enter__`, `__exit__`) guaranteeing safe DB connection lifecycles without resource leaks, extreme memory optimization with `__slots__` (disabling `__dict__` to save 40-60% RAM in high-throughput data processing), and production design patterns (**Singleton** connection pools via `__new__`, **Factory** multi-database dynamic client instantiation). | `Class Notes - 20-11-26 - OOP Part 3 - Advanced and Patterns.py` |
+| **17. Timed Python Collections Evaluation** | Comprehensive hands-on test evaluating operations across all 4 built-in Python collections (**Lists**, **Tuples**, **Sets**, and **Dictionaries**): item manipulation, immutability constraints, set algebra (union, intersection, difference), and key-value lookups. | `Class Test - 18-11-26 - Wasim Akthar.py` |
+| **18. Python Practice Questionnaire** | Comprehensive 50-question hands-on drill spanning Variables, Data Types, Type Conversions, String/Integer I/O, Operators, and Control Statements with accompanying Microsoft Word output submission report. | `Python Assignment - 30-10-26 - Wasim Akthar.py`, `Python Assignment - 30-10-26 - Wasim Akthar.docx` |
+| **19. Python Scenario-Based Assignment** | 50 scenario-driven questions simulating real-world engineering data: Employee master data, company metrics, salary calculations, customer profiles, e-commerce orders, temperature thresholds, student grading, and list/string processing with structured Word report documentation. | `Python Assignment - 12-11-26 - Wasim Akthar.py`, `Python Assignment - 12-11-26 - Wasim Akthar.docx` |
 
 ---
 
@@ -242,6 +254,20 @@ flowchart TD
   - Strict schema integrity (`CHECK price > 0`, `UNIQUE email`, `NOT NULL`).
   - Correlated subqueries to find customers who placed above-average orders or purchased in specific product categories.
 
+### 💳 7. Google Pay (GPay) Payment Application & Transaction Audits
+- **File**: `SQL Files/Class Assignments/SQL Assignment 26-10-26 - Wasim Akthar.sql`
+- **Scope**: **30 Comprehensive Scenario Queries**
+- **Schema**:
+  - `Customers`: `customer_id`, `customer_name`, `city`, `age`
+  - `Bank_Accounts`: `account_id`, `customer_id` (FK), `bank_name`, `account_type`, `balance`
+  - `Transactions`: `txn_id`, `from_account_id` (FK), `to_account_id` (FK), `amount`, `txn_date`, `status`
+- **Focus**:
+  - Multi-table financial modeling across customer accounts, bank tiers, and money transfer ledgers.
+  - Schema alterations (`ALTER TABLE`), transactional updates, and integrity constraint enforcement.
+  - Aggregations and grouping by bank providers and transaction lifecycle status (`SUCCESS`, `FAILED`, `PENDING`).
+  - Correlated subqueries (`EXISTS` / `NOT EXISTS`) isolating active accounts and transfer volumes.
+  - Window ranking (`ROW_NUMBER`, `DENSE_RANK`, `NTILE`) and CTEs (`WITH`) to audit top-volume transfers and balance distributions.
+
 ---
 
 ## 📝 Timed Class Tests & Evaluations
@@ -275,6 +301,11 @@ python "Python Files/Notes/Class Notes - 12-11-26 - Tuples.py"
 python "Python Files/Notes/Class Notes - 13-11-26 - Sets.py"
 python "Python Files/Notes/Class Notes - 16-11-26 - Dictionaries.py"
 python "Python Files/Notes/Class Notes - 17-11-26 - Functions.py"
+python "Python Files/Notes/Class Notes - 20-11-26 - OOP Part 1 - Classes and Objects.py"
+python "Python Files/Notes/Class Notes - 20-11-26 - OOP Part 2 - Four Pillars.py"
+python "Python Files/Notes/Class Notes - 20-11-26 - OOP Part 3 - Advanced and Patterns.py"
+python "Python Files/Rough Work/Rough Work - Functions.py"
+python "Python Files/Rough Work/Rough Work - OOPS.py"
 python "Python Files/Class Tests/Class Test - 18-11-26 - Wasim Akthar.py"
 python "Python Files/Class Assignments/Python Assignment - 30-10-26 - Wasim Akthar.py"
 python "Python Files/Class Assignments/Python Assignment - 12-11-26 - Wasim Akthar.py"
@@ -319,8 +350,8 @@ This repository is continuously maintained as the bootcamp progresses:
   - [x] Python Sets & Hash-Based Algebra (unique constraints, set algebra, frozenset, O(1) lookups, reconciliation)
   - [x] Python Dictionaries & Hash Mapping (key-value modeling, JSON payloads, view set algebra, defaultdict, Counter, nested flattening)
   - [x] Functions, Generators & Modular Engineering (LEGB scoping, *args/**kwargs, closures, decorators, yield streams)
+  - [x] Object-Oriented Programming (OOP) — Classes, 4 Pillars (Encapsulation, 5 Inheritance Types, Polymorphism & Duck Typing, Abstraction), MRO C3 Linearization, Dunders, Descriptors, Context Managers, __slots__ & Design Patterns (Singleton, Factory, Template Method)
   - [ ] Error & Exception Handling (try-except-finally, custom exceptions)
-  - [ ] Object-Oriented Programming (OOP)
   - [ ] Data Wrangling with Pandas & Polars
 - [ ] **Module 3**: Data Modeling & Dimensional Warehousing (Star/Snowflake Schema, SCDs)
 - [ ] **Module 4**: ETL / ELT Pipeline Development
