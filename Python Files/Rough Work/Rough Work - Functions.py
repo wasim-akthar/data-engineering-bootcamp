@@ -183,3 +183,28 @@ def example_function_with_kwargs(**kwargs):
         print(f"{key}: {value}")
 
 example_function_with_kwargs(name="Alice", age=30, city="New York")  # Calling the function with keyword arguments
+
+def example_with_args_and_kwargs(*a, **k):
+    print("Keyword arguments:", k)
+    print("Positional arguments:", a)
+example_with_args_and_kwargs("Hello", "World")  
+
+
+def swiggy_orders(*orders, **restaurant):
+    print("Positional arguments:", orders)
+    print("Keyword arguments:", restaurant)
+
+swiggy_orders("Pizza", "Burger", "Pasta", "Coke",
+              restaurant_name="Domino's", location="Nungambakkam", customer_name="John Wick") 
+
+def order_processing(**orders):
+    for order_id, order_details in orders.items():
+        print(f"Order ID: {order_id}")
+        print(f"Order Details: {order_details}")
+        print("-----")
+order_processing(
+    order_1={"item": "Pizza", "quantity": 2},
+    order_2={"item": "Burger", "quantity": 1},
+    order_3={"item": "Pasta", "quantity": 3}
+) 
+# Calling the function with both positional and keyword arguments
