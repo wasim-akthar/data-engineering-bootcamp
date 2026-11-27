@@ -154,3 +154,60 @@ SBI.fixed_deposit()
 
 
 '''
+
+# Access Modifiers
+# Public Access Modifier
+
+class Public:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+  def details(self):
+    print("Your Name :", self.name)
+    print("Your Age :", self.age)
+p_access = Public('Wasim', 25)
+p_access.details()
+
+# Protected Access Modifier
+
+class Protected:
+  def __init__(self, name, age):
+    self._name = name
+    self._age = age
+  def details(self):
+    print("Your Name :", self._name)
+    print("Your Age :", self._age)
+protected = Protected('Wasim', 25)
+protected.details()
+print(protected._name) # This will give the value of _name because we are accessing it through the class name
+# Private Access Modifier
+
+class Private:
+  def __init__(self, name, age):
+    self.__name = name
+    self.__age = age
+  def details(self):
+    print("Your Name :", self.__name)
+    print("Your Age :", self.__age)
+
+private = Private('Wasim', 25)
+private.details()
+print(private.__name) # This will give an error because __name is private
+print((private._Private__name)) # This will give the value of __name because we are accessing it through the class name
+
+
+from abc import ABC,abstractmethod
+class vehicle(ABC):
+    @abstractmethod
+    def start(self):
+        pass
+class Bike(vehicle):
+    def start(self):
+        print("self start")
+class car(vehicle):
+    def start(self):
+        print("using button")
+c=car()
+b=Bike()
+c.start()
+b.start()

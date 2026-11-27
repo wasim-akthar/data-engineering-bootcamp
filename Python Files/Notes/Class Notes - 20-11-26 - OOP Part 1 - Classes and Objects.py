@@ -199,55 +199,214 @@ print("Is 8000 a valid salary?:", Employee.is_valid_salary(8000)) # True
 # ==============================================================================
 # 5. DUNDER (MAGIC) METHODS: MAKING YOUR OBJECTS SMART
 # ==============================================================================
-# Have you ever wondered why `print([1, 2, 3])` prints nicely, or `len([1, 2])` works?
-# Because Python uses Dunder Methods ("Double Underscore") under the hood!
+# "Dunder" stands for "Double Underscore" (__method__).
+# Magic methods are NOT called directly (like `obj.__len__()`).
+# Instead, Python invokes them AUTOMATICALLY under the hood when you use built-in
+# syntax, operators, or functions:
 #
-# You can give your own custom objects superpowers:
-# - `__str__`  : What should `print(my_object)` show to human users?
-# - `__repr__` : What should developers see in debuggers?
-# - `__len__`  : What should `len(my_object)` return?
-# - `__eq__`   : What does `obj1 == obj2` mean?
+#   You write in Python:        Python secretly executes:
+#   ─────────────────────────────────────────────────────────────
+#   len(cart)             ───>  cart.__len__()
+#   print(cart)           ───>  cart.__str__()
+#   cart[0]               ───>  cart.__getitem__(0)
+#   "Laptop" in cart      ───>  cart.__contains__("Laptop")
+#   cart1 == cart2        ───>  cart1.__eq__(cart2)
+#   cart1 < cart2         ───>  cart1.__lt__(cart2)
+#   cart1 + cart2         ───>  cart1.__add__(cart2)
+#   for item in cart:     ───>  iter(cart) -> cart.__iter__()
+#   cart("discount10")    ───>  cart.__call__("discount10")
+#
+# ------------------------------------------------------------------------------
+# CORE DUNDER METHOD CATEGORIES & PROTOCOLS:
+# ------------------------------------------------------------------------------
+# 1. String Representation:
+#    - `__str__`  : Human-friendly text for `print()` and `str()`.
+#    - `__repr__` : Unambiguous developer representation for debuggers and lists.
+# 2. Container & Sequence Protocol:
+#    - `__len__`      : Size for `len()`.
+#    - `__getitem__`  : Bracket lookup (`obj[i]`) and slicing (`obj[1:3]`).
+#    - `__setitem__`  : Bracket assignment (`obj[i] = val`).
+#    - `__contains__` : Membership test (`val in obj`).
+# 3. Iteration Protocol:
+#    - `__iter__` : Makes your custom class loopable in `for ... in obj:`.
+# 4. Rich Comparisons:
+#    - `__eq__` : Equality (`==`).
+#    - `__lt__` : Less-than (`<`), enables native `sorted([obj1, obj2])`.
+# 5. Arithmetic & Operator Overloading:
+#    - `__add__` : Plus operator (`obj1 + obj2`).
+# 6. Callable Objects:
+#    - `__call__` : Allows instances to be called like functions (`obj(arg)`).
 
-print("\n--- 5. MAGIC DUNDER METHODS ---")
+print("\n--- 5. MAGIC DUNDER METHODS IN DEPTH ---")
 
-class ShoppingCart:
-    def __init__(self, customer_name):
+class SmartCart:
+    """An advanced container demonstrating core magic dunder protocols."""
+
+    def __init__(self, customer_name, items=None):
         self.customer_name = customer_name
-        self.items = []
+        self.items = list(items) if items else []
 
     def add_item(self, item_name):
         self.items.append(item_name)
 
-    # 1. Human-friendly display for print():
+    # --------------------------------------------------------------------------
+    # 1. String Representations: __str__ vs __repr__
+    # --------------------------------------------------------------------------
     def __str__(self):
-        return f"{self.customer_name}'s Cart with {len(self.items)} items"
+        """Human-friendly summary shown by print(cart) or str(cart)."""
+        return f"{self.customer_name}'s Cart ({len(self.items)} items)"
 
-    # 2. Technical representation for developers:
     def __repr__(self):
-        return f"ShoppingCart(customer_name='{self.customer_name}', items={self.items})"
+        """Unambiguous developer display (used in debuggers and lists)."""
+        return f"SmartCart(customer_name='{self.customer_name}', items={self.items!r})"
 
-    # 3. Makes len(my_cart) work:
+    # --------------------------------------------------------------------------
+    # 2. Container & Truthiness Protocol: __len__, __getitem__, __setitem__, __delitem__, __contains__, __bool__
+    # --------------------------------------------------------------------------
     def __len__(self):
+        """Allows len(cart). Also used by bool(cart) if __bool__ isn't defined."""
         return len(self.items)
 
-    # 4. Makes cart1 == cart2 compare the items inside:
+    def __getitem__(self, index):
+        """Allows cart[0] bracket access AND cart[0:2] slicing!"""
+        return self.items[index]
+
+    def __setitem__(self, index, value):
+        """Allows cart[0] = 'Tablet' in-place modification."""
+        self.items[index] = value
+
+    def __delitem__(self, index):
+        """Allows del cart[0] deletion."""
+        del self.items[index]
+
+    def __contains__(self, item):
+        """Allows 'Laptop' in cart (O(n) list check or custom O(1) hash check)."""
+        return item in self.items
+
+    def __bool__(self):
+        """Custom truthiness for if cart: (True if cart has at least 1 item)."""
+        return len(self.items) > 0
+
+    # --------------------------------------------------------------------------
+    # 3. Iteration Protocol: __iter__
+    # --------------------------------------------------------------------------
+    def __iter__(self):
+        """Makes the object directly iterable: `for item in cart:`"""
+        return iter(self.items)
+
+    # --------------------------------------------------------------------------
+    # 4. Rich Comparisons: __eq__ and __lt__
+    # --------------------------------------------------------------------------
     def __eq__(self, other):
-        if isinstance(other, ShoppingCart):
-            return self.items == other.items
+        """Compares carts based on contents rather than memory IDs."""
+        if isinstance(other, SmartCart):
+            return sorted(self.items) == sorted(other.items)
         return False
 
-cart1 = ShoppingCart("Wasim")
-cart1.add_item("Laptop")
-cart1.add_item("Mouse")
+    def __lt__(self, other):
+        """Allows comparing carts by item count (enables sorted() functionality!)."""
+        if isinstance(other, SmartCart):
+            return len(self.items) < len(other.items)
+        return NotImplemented
 
-print("print(cart1) using __str__:", cart1)
-print("len(cart1) using __len__:", len(cart1))
+    # --------------------------------------------------------------------------
+    # 5. Operator Overloading: __add__
+    # --------------------------------------------------------------------------
+    def __add__(self, other):
+        """Combines two carts into a new merged cart using the '+' operator."""
+        if isinstance(other, SmartCart):
+            merged_customer = f"{self.customer_name} & {other.customer_name}"
+            return SmartCart(merged_customer, self.items + other.items)
+        return NotImplemented
 
-cart2 = ShoppingCart("Wasim Duplicate")
-cart2.add_item("Laptop")
-cart2.add_item("Mouse")
+    # --------------------------------------------------------------------------
+    # 6. Callable Objects: __call__
+    # --------------------------------------------------------------------------
+    def __call__(self, discount_code):
+        """Allows instance to be called directly: cart('SUMMER50')."""
+        return f"Applied discount coupon '{discount_code}' to {self.customer_name}'s Cart!"
 
-print("Are the items in cart1 and cart2 equal? (cart1 == cart2):", cart1 == cart2) # True!
+
+# --- Practical Demonstration ---
+
+cart1 = SmartCart("Wasim", ["Laptop", "Mouse"])
+cart2 = SmartCart("Arun", ["Keyboard", "Monitor", "Headphones"])
+
+# 1. Testing __str__ and __repr__:
+print("print(cart1)   [__str__] :", cart1)
+print("repr(cart1)    [__repr__]:", repr(cart1))
+print("Inside a list  [__repr__]:", [cart1, cart2])
+
+# 2. Testing Container Protocol (__len__, __getitem__, __contains__):
+print("len(cart1)     [__len__] :", len(cart1))
+print("cart1[0]       [__getitem__]:", cart1[0])
+print("cart1[0:2]     [slice]   :", cart1[0:2])
+print("Is 'Mouse' in cart1? [__contains__]:", "Mouse" in cart1)
+print("Is 'Phone' in cart1? [__contains__]:", "Phone" in cart1)
+
+# Mutating an item with __setitem__:
+cart1[1] = "Wireless Mouse"
+print("After cart1[1] = 'Wireless Mouse':", cart1.items)
+
+# Deleting an item with __delitem__:
+del cart1[1]
+print("After del cart1[1] [__delitem__]:", cart1.items)
+cart1.add_item("Wireless Mouse") # Re-add for remaining tests
+
+# Testing Truthiness with __bool__:
+empty_cart = SmartCart("Empty User")
+print("bool(cart1)      [__bool__]:", bool(cart1))      # True (has items)
+print("bool(empty_cart) [__bool__]:", bool(empty_cart)) # False (0 items)
+
+# 3. Testing Iteration Protocol (__iter__):
+print("Iterating over cart1 directly with `for item in cart1`:")
+for item in cart1:
+    print(f"  - Item: {item}")
+
+# 4. Testing Comparisons & Sorting (__eq__, __lt__):
+cart_duplicate = SmartCart("Wasim Twin", ["Wireless Mouse", "Laptop"])
+print("cart1 == cart_duplicate [__eq__]:", cart1 == cart_duplicate) # True (same items)
+print("cart1 < cart2            [__lt__]:", cart1 < cart2)            # True (2 items < 3 items)
+
+# Sorting a list of carts using __lt__:
+sorted_carts = sorted([cart2, cart1]) # Sorts smallest cart to largest!
+print("Sorted carts by size:", [c.customer_name for c in sorted_carts])
+
+# 5. Testing Operator Overloading (+ via __add__):
+merged_cart = cart1 + cart2
+print("cart1 + cart2  [__add__] :", merged_cart)
+print("Merged items             :", merged_cart.items)
+
+# 6. Testing Callable Objects (__call__):
+print("cart1('SAVE20') [__call__]:", cart1("SAVE20"))
+
+# ------------------------------------------------------------------------------
+# 💡 INTERVIEW NOTES & BEST PRACTICES FOR MAGIC DUNDER METHODS:
+# ------------------------------------------------------------------------------
+# 1. Never invoke dunder methods directly:
+#    Always prefer `len(obj)` over `obj.__len__()`. Python optimizes `len()`
+#    at the C-level (reading ob_size in CPython struct in O(1) time).
+# 2. The __str__ vs __repr__ Rule:
+#    "If you only implement one, implement __repr__."
+#    If __str__ is missing, Python falls back to __repr__.
+# 3. The __hash__ and __eq__ Relationship:
+#    If you override `__eq__`, Python automatically sets `__hash__ = None` to
+#    prevent mutable objects from corrupting hash tables (sets/dicts).
+#    If your object is immutable and needs to be used in sets or dict keys,
+#    you MUST explicitly implement `def __hash__(self): return hash(...)`.
+# 4. Returning NotImplemented:
+#    In operators like `__add__` and `__lt__`, return `NotImplemented` instead
+#    of raising `TypeError`. This allows Python to try the reflected method
+#    (e.g., `other.__radd__(self)`) before throwing an error.
+# 5. Full Curriculum Cross-Reference for Dunder Methods:
+#    - Part 1 (This File): __init__, __str__, __repr__, __len__, __getitem__,
+#      __setitem__, __delitem__, __contains__, __bool__, __iter__, __eq__, __lt__,
+#      __add__, __call__.
+#    - Part 2 (Four Pillars): Name Mangling (__private_var) in Encapsulation,
+#      __mro__ in Inheritance, Operator Overloading (__add__) in Polymorphism.
+#    - Part 3 (Advanced OOP): Memory optimization via __slots__, resource management
+#      via Context Managers (__enter__ and __exit__), and Singleton instance
+#      allocation via __new__.
 
 
 # ==============================================================================

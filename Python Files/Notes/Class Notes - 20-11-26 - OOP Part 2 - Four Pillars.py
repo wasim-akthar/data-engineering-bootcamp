@@ -434,6 +434,8 @@ print("\n" + "=" * 70)
 print("--- PILLAR 4: ABSTRACTION (abc MODULE) ---")
 print("=" * 70)
 
+# ABC = Abstract Base Class
+# abstractmethod = Decorator that marks methods as abstract (must be overridden in subclasses)
 from abc import ABC, abstractmethod
 
 # THE ABSTRACT CONTRACT (Architecture Blueprint):
